@@ -1,6 +1,0 @@
-[submodule "aws-learn"]
-	path = aws-learn
-	url = git@github.com:vanhiep99w/aws-learn.git
-[submodule "microservice-learn"]
-	path = microservice-learn
-	url = git@github.com:vanhiep99w/microservice-learn.git
