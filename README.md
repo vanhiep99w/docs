@@ -42,6 +42,29 @@ Mở `index.html`, tìm 2 dòng comment `TODO` và thay URL:
 <a href="https://YOUR-MS-URL" ...>
 ```
 
+## Claude Code Plugin Marketplace
+
+Repo này cũng đóng vai trò **plugin marketplace** cho Claude Code, hiện có:
+
+| Plugin | Mô tả |
+|--------|--------|
+| `write-docs` | Hướng dẫn viết tài liệu kỹ thuật tiếng Việt (Next.js + Fumadocs + Cloudflare) |
+
+### Cài vào project
+
+```shell
+/plugin marketplace add vanhiep99w/docs
+/plugin install write-docs@vanhiep-plugins
+```
+
+Sau khi cài, restart Claude Code để plugin có hiệu lực.
+
+### Cập nhật plugin
+
+```shell
+/plugin marketplace update vanhiep-plugins
+```
+
 ## Khi thêm site mới
 
 Thêm 1 portal card vào `index.html` theo pattern của các card hiện có.
