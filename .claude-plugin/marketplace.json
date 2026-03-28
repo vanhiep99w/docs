@@ -1,0 +1,24 @@
+{
+  "name": "vanhiep-plugins",
+  "owner": {
+    "name": "Hiep Tran",
+    "email": "vanhiep99w@gmail.com"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for technical documentation and workflow automation",
+    "pluginRoot": "./skills"
+  },
+  "plugins": [
+    {
+      "name": "write-docs",
+      "source": "./write-docs",
+      "description": "Technical documentation writing guide in Vietnamese with Next.js + Fumadocs + Cloudflare deployment",
+      "version": "1.0.0",
+      "author": {
+        "name": "Hiep Tran"
+      },
+      "keywords": ["docs", "documentation", "vietnamese", "cloudflare", "nextjs"],
+      "category": "documentation"
+    }
+  ]
+}
