@@ -1,4 +1,4 @@
-# Setup & Deploy — Next.js + Fumadocs + Cloudflare Workers
+# Setup & Deploy — Next.js + Fumadocs + Cloudflare Pages
 
 ## Prerequisites
 
@@ -9,13 +9,11 @@
 ## Tạo Repo Mới từ Template
 
 ```bash
-# Option 1: Clone từ aws-learn (recommended)
+# Clone từ aws-learn (recommended)
 git clone https://github.com/vanhiep99w/aws-learn my-new-docs
 cd my-new-docs
 rm -rf .git && git init
-
-# Option 2: Clone từ microservice-learn
-git clone https://github.com/vanhiep99w/microservice-learn my-new-docs
+npm install
 ```
 
 ## Dependencies
@@ -33,77 +31,55 @@ git clone https://github.com/vanhiep99w/microservice-learn my-new-docs
     "dev": "next dev",
     "prebuild": "node scripts/prepare-content.mjs",
     "build": "next build",
-    "preview": "wrangler dev",
-    "deploy": "npm run build && wrangler deploy"
+    "preview": "wrangler pages dev dist",
+    "deploy": "npm run build && wrangler pages deploy dist"
   },
   "dependencies": {
     "fumadocs-core": "^14.5.6",
     "fumadocs-mdx": "^11.1.3",
     "fumadocs-ui": "^14.5.6",
+    "mermaid": "^11.13.0",
     "next": "^15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "remark-github-admonitions-to-directives": "^2.1.0"
+    "remark-github-admonitions-to-directives": "^2.1.0",
+    "unist-util-visit": "^5.1.0"
   }
 }
 ```
 
-```bash
-npm install
-```
-
-## Cloudflare Workers Config
+## Cloudflare Pages Config
 
 `wrangler.toml` (tối thiểu):
 
 ```toml
 name = "my-docs-site"
-compatibility_date = "2026-03-14"
-
-[assets]
-directory = "./dist"
+pages_build_output_dir = "./dist"
 ```
 
-**Lưu ý:**
-- `name` phải unique trên Cloudflare account
-- `directory = "./dist"` — Next.js build output mặc định
-- Không cần `routes`, Cloudflare tự handle
+> Dùng `pages_build_output_dir` (Pages) thay vì `[assets] directory` (Workers). Static site docs không cần Workers.
+
+## Auto Deploy qua GitHub
+
+Kết nối GitHub → Cloudflare Pages Dashboard:
+1. Workers & Pages → Create → Pages → Connect GitHub
+2. Build command: `npm run build`
+3. Output directory: `dist`
+
+Cloudflare tự tạo webhook — mỗi khi push, site tự build và deploy.
 
 ## Local Development
 
 ```bash
 npm run dev        # http://localhost:3000
-npm run preview    # Preview với Wrangler (giống production hơn)
+npm run preview    # Preview với Wrangler
 ```
 
-## Deploy lên Cloudflare
+## Deploy Thủ Công
 
 ```bash
-# Lần đầu: login Wrangler
-wrangler login
-
-# Deploy
-npm run deploy
-# = npm run build && wrangler deploy
-# → URL: https://my-docs-site.{account}.workers.dev
-```
-
-## Custom Domain (Optional)
-
-Trong Cloudflare Dashboard:
-1. Workers & Pages → chọn project
-2. Settings → Domains & Routes → Add Custom Domain
-3. Nhập domain (phải dùng Cloudflare DNS)
-
-## Build Process Chi tiết
-
-```
-npm run build
-  ├── prebuild: node scripts/prepare-content.mjs
-  │   └── Scan content/docs/ → generate route manifest
-  └── next build
-      └── Output: .next/ + dist/
-          └── Static files ready for Cloudflare
+wrangler login     # Lần đầu
+npm run deploy     # = npm run build && wrangler pages deploy dist
 ```
 
 ## Fumadocs Navigation Config
@@ -111,11 +87,7 @@ npm run build
 `content/docs/meta.json` — thứ tự sidebar:
 ```json
 {
-  "pages": [
-    "fundamentals",
-    "compute",
-    "database"
-  ]
+  "pages": ["fundamentals", "compute", "database"]
 }
 ```
 
@@ -126,29 +98,76 @@ npm run build
 }
 ```
 
-## Mermaid Diagram Support
+## `page.tsx` Chuẩn — Có đầy đủ Fumadocs components
 
-Fumadocs không có built-in Mermaid support — cần setup thủ công.
+```tsx
+// src/app/[[...slug]]/page.tsx
+import { source } from '@/lib/source';
+import { DocsPage, DocsBody, DocsTitle, DocsDescription } from 'fumadocs-ui/page';
+import { notFound, redirect } from 'next/navigation';
+import defaultMdxComponents from 'fumadocs-ui/mdx';
+import { MermaidDiagram } from '@/components/mermaid';
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+import type { Metadata } from 'next';
 
-### Cài dependencies
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>;
+}) {
+  const { slug } = await params;
+  if (!slug || slug.length === 0) redirect('/your-first-page/');
 
-```bash
-npm install mermaid unist-util-visit
+  const page = source.getPage(slug);
+  if (!page) notFound();
+
+  const MDX = page.data.body;
+  return (
+    <DocsPage toc={page.data.toc} full={false}>
+      <DocsTitle>{page.data.title}</DocsTitle>
+      <DocsDescription>{page.data.description}</DocsDescription>
+      <DocsBody>
+        <MDX components={{ ...defaultMdxComponents, MermaidDiagram, Callout, Card, Cards, Step, Steps, Tab, Tabs, Accordion, Accordions, TypeTable }} />
+      </DocsBody>
+    </DocsPage>
+  );
+}
+
+export async function generateStaticParams() {
+  return [{ slug: [] }, ...source.generateParams()];
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  if (!slug || slug.length === 0) return { title: 'Docs' };
+  const page = source.getPage(slug);
+  if (!page) notFound();
+  return { title: page.data.title, description: page.data.description };
+}
 ```
 
-### 1. Tạo remark plugin trong `source.config.ts`
+## Mermaid Diagram Support
 
-Plugin chuyển ` ```mermaid ` block thành JSX component **trước khi Shiki xử lý**:
+### 1. `source.config.ts` — remark plugin
 
 ```ts
-// source.config.ts
+import { defineDocs, defineConfig } from 'fumadocs-mdx/config';
 import { visit } from 'unist-util-visit';
 
 function remarkMermaid() {
-  return (tree: any) => {
-    visit(tree, 'code', (node: any, index: any, parent: any) => {
-      if (node.lang !== 'mermaid') return;
-      parent.children[index] = {
+  return (tree: import('mdast').Root) => {
+    visit(tree, 'code', (node, index, parent) => {
+      if (node.lang !== 'mermaid' || index === undefined || !parent) return;
+      (parent.children as unknown[])[index] = {
         type: 'mdxJsxFlowElement',
         name: 'MermaidDiagram',
         attributes: [{ type: 'mdxJsxAttribute', name: 'chart', value: node.value }],
@@ -158,89 +177,45 @@ function remarkMermaid() {
   };
 }
 
-// Thêm vào defineConfig:
-export default defineDocs({
-  mdxOptions: {
-    remarkPlugins: [remarkMermaid],
-  },
+export const docs = defineDocs({ dir: 'content/docs' });
+
+export default defineConfig({
+  mdxOptions: { remarkPlugins: [remarkMermaid] },
 });
 ```
 
 > [!IMPORTANT]
 > Plugin **phải đặt trong `source.config.ts`**, không phải `next.config.mjs`.
-> Fumadocs xử lý MDX content qua `source.config.ts` — đặt trong `next.config.mjs` không có tác dụng.
 
-### 2. Tạo `src/components/mermaid.tsx`
+### 2. `src/components/mermaid.tsx`
 
 ```tsx
 'use client';
-import { useEffect, useRef } from 'react';
-import mermaid from 'mermaid';
-
-mermaid.initialize({ startOnLoad: false, theme: 'default' });
+import { useEffect, useId, useRef } from 'react';
 
 export function MermaidDiagram({ chart }: { chart: string }) {
+  const id = useId();
   const ref = useRef<HTMLDivElement>(null);
+  const safeId = `mermaid-${id.replace(/:/g, '')}`;
 
   useEffect(() => {
     if (!ref.current) return;
-    const id = `mermaid-${Math.random().toString(36).slice(2)}`;
-    mermaid.render(id, chart).then(({ svg }) => {
-      if (ref.current) ref.current.innerHTML = svg;
+    let cancelled = false;
+    import('mermaid').then((m) => {
+      if (cancelled) return;
+      m.default.initialize({ startOnLoad: false });
+      m.default.render(safeId, chart).then(({ svg }) => {
+        if (!cancelled && ref.current) ref.current.innerHTML = svg;
+      });
     });
-  }, [chart]);
+    return () => { cancelled = true; };
+  }, [chart, safeId]);
 
-  return <div ref={ref} />;
+  return <div ref={ref} className="my-6 flex justify-center overflow-x-auto" />;
 }
 ```
-
-### 3. Register vào MDX components trong `page.tsx`
-
-```tsx
-// src/app/docs/[[...slug]]/page.tsx
-import { MermaidDiagram } from '@/components/mermaid';
-
-export default function Page(...) {
-  return (
-    <DocsPage>
-      <DocsBody>
-        <MDXContent components={{ MermaidDiagram }} />
-      </DocsBody>
-    </DocsPage>
-  );
-}
-```
-
----
-
-## Route Conflict — Next.js 15.5+
-
-Next.js 15.5 không cho phép `src/app/page.tsx` tồn tại cùng `src/app/[[...slug]]/page.tsx`.
-
-**Fix:** Xóa `src/app/page.tsx`, chuyển redirect vào `[[...slug]]/page.tsx`:
-
-```tsx
-// src/app/docs/[[...slug]]/page.tsx
-export async function generateStaticParams() {
-  return [
-    { slug: [] },  // ← thêm dòng này để root path hoạt động với output: export
-    ...source.generateParams(),
-  ];
-}
-
-export default function Page({ params }: { params: { slug?: string[] } }) {
-  if (!params.slug || params.slug.length === 0) {
-    redirect('/docs/fundamentals'); // hoặc trang mặc định
-  }
-  // ... rest of page
-}
-```
-
----
 
 ## Mở rộng Content Area
-
-Fumadocs mặc định giới hạn content width ~860px. Để content chiếm hết không gian giữa 2 sidebar:
 
 ```css
 /* src/app/globals.css */
@@ -249,16 +224,18 @@ Fumadocs mặc định giới hạn content width ~860px. Để content chiếm 
 }
 ```
 
----
+## Route Conflict — Next.js 15.5+
+
+Xóa `src/app/page.tsx`, xử lý redirect trong `[[...slug]]/page.tsx` (xem `page.tsx` chuẩn ở trên).
 
 ## Troubleshooting
 
-| Vấn đề | Nguyên nhân | Fix |
-|--------|------------|-----|
-| Doc không hiện trong sidebar | Chưa thêm vào meta.json | Thêm file name vào `"pages"` |
-| Build lỗi "Cannot find module" | Thiếu dependency | `npm install` |
-| Wrangler deploy lỗi auth | Chưa login | `wrangler login` |
-| `> [!IMPORTANT]` không render | Thiếu remark plugin | Kiểm tra `remark-github-admonitions-to-directives` trong package.json |
-| Mermaid không render | Plugin đặt sai chỗ | Đảm bảo remarkMermaid trong `source.config.ts`, không phải `next.config.mjs` |
-| Build lỗi route conflict | Next.js 15.5+ | Xóa `src/app/page.tsx`, xử lý redirect trong `[[...slug]]/page.tsx` |
-| Content bị giới hạn width | Fumadocs default CSS | Thêm `#nd-page article { max-width: none }` vào `globals.css` |
+| Vấn đề | Fix |
+|--------|-----|
+| Doc không hiện sidebar | Thêm vào `meta.json` → `"pages"` array |
+| Wrangler deploy lỗi auth | `wrangler login` |
+| `> [!IMPORTANT]` không render | Kiểm tra `remark-github-admonitions-to-directives` trong package.json |
+| Mermaid không render | Plugin phải trong `source.config.ts`, không phải `next.config.mjs` |
+| Build lỗi route conflict | Xóa `src/app/page.tsx` |
+| Content bị giới hạn width | Thêm `#nd-page article { max-width: none }` vào `globals.css` |
+| Component không work trong .md | Kiểm tra đã register trong `page.tsx` components prop |

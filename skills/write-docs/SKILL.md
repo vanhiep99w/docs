@@ -1,9 +1,10 @@
 ---
 name: write-docs
 description: >
-  Hướng dẫn viết tài liệu kỹ thuật tiếng Việt chuẩn structure, chi tiết đúng mức, và deploy lên Cloudflare Workers.
+  Hướng dẫn viết tài liệu kỹ thuật tiếng Việt chuẩn structure, chi tiết đúng mức, và deploy lên Cloudflare Pages/Workers.
   Dùng khi: (1) Tạo doc mới cho aws-learn, microservice-learn hoặc repo tương tự; (2) Review/cải thiện doc hiện có;
-  (3) Setup repo docs mới với Next.js + Fumadocs + Cloudflare; (4) Cần template hoặc checklist để viết doc kỹ thuật tiếng Việt.
+  (3) Setup repo docs mới với Next.js + Fumadocs + Cloudflare; (4) Cần template hoặc checklist để viết doc kỹ thuật tiếng Việt;
+  (5) Dùng Fumadocs components (Callout, Cards, Steps, Tabs, Accordion, TypeTable, Mermaid) trong file .md.
 ---
 
 # write-docs
@@ -156,6 +157,33 @@ sequenceDiagram
 > Thông tin bổ sung
 ```
 
+## Syntax Gotchas
+
+Các lỗi hay gặp khi viết `.md` cho Fumadocs — xem đầy đủ trong [`references/md-syntax.md`](references/md-syntax.md).
+
+**Nhanh:**
+- Frontmatter `title` + `description` bắt buộc
+- Internal links phải có trailing slash: `/basics/overview/`
+- JSX components cần dòng trống trước và sau
+- Code blocks phải ghi language: ` ```bash `
+- Không bỏ qua cấp heading (H2→H3→H4)
+
+## Fumadocs Components
+
+Các component UI có thể dùng trực tiếp trong file `.md` **không cần import** — đã đăng ký global trong `page.tsx`.
+
+| Component | Dùng cho |
+|-----------|---------|
+| `<Callout>` | Cảnh báo, tip, lưu ý (thay thế `> [!NOTE]`) |
+| `<Cards>` + `<Card>` | Navigation, link tới trang liên quan |
+| `<Steps>` + `<Step>` | Hướng dẫn từng bước, setup guide |
+| `<Tabs>` + `<Tab>` | So sánh multi-platform, code nhiều ngôn ngữ |
+| `<Accordions>` + `<Accordion>` | FAQ, nội dung optional |
+| `<TypeTable>` | Mô tả config, API options, env vars |
+| ` ```mermaid ` | Flow diagram, sequence diagram |
+
+Xem ví dụ đầy đủ và hướng dẫn dùng từng component: [`references/fumadocs-components.md`](references/fumadocs-components.md)
+
 ## Setup Repo Mới
 
 Xem hướng dẫn đầy đủ trong [`references/setup-deploy.md`](references/setup-deploy.md) — bao gồm:
@@ -170,16 +198,13 @@ git clone https://github.com/vanhiep99w/aws-learn my-docs
 cd my-docs
 npm install
 npm run dev    # localhost:3000
-npm run deploy  # = next build + wrangler deploy
+npm run deploy  # = next build + wrangler pages deploy dist
 ```
 
 `wrangler.toml` tối thiểu:
 ```toml
 name = "my-docs-site"
-compatibility_date = "2026-03-14"
-
-[assets]
-directory = "./dist"
+pages_build_output_dir = "./dist"
 ```
 
 ## Workflow Tạo Doc Mới
