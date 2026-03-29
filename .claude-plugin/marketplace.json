@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "write-docs",
-      "source": "./write-docs",
+      "source": "./skills/write-docs",
       "description": "Technical documentation writing guide in Vietnamese with Next.js + Fumadocs + Cloudflare deployment",
       "version": "1.0.0",
       "author": {
