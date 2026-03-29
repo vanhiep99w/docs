@@ -6,5 +6,6 @@
     "name": "Hiep Tran"
   },
   "keywords": ["docs", "documentation", "vietnamese", "cloudflare", "nextjs"],
-  "category": "documentation"
+  "category": "documentation",
+  "skills": ["./"]
 }
