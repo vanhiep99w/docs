@@ -9,18 +9,30 @@ description: >
 
 # write-docs
 
+## Project Locations
+
+Khi tạo hoặc chỉnh sửa doc, **luôn dùng absolute path** sau:
+
+| Project | Thư mục content |
+|---------|----------------|
+| `aws-learn` | `/home/hieptran/Desktop/aws-learn/content/docs/` |
+| `microservice-learn` | `/home/hieptran/Desktop/microservice-learn/content/docs/` |
+| `multi-tenant` | `/home/hieptran/Desktop/multi-tenant/content/docs/` |
+
+Nếu user không chỉ rõ project, hỏi trước khi tạo file.
+
 ## Stack & Project Structure
 
-Cả `aws-learn` và `microservice-learn` dùng cùng stack:
+Cả 3 project dùng cùng stack:
 
 ```
-Next.js 15 + Fumadocs + Cloudflare Workers/Pages
+Next.js 15 + Fumadocs + Cloudflare Pages
 ```
 
 ```
 repo/
 ├── content/docs/          # Toàn bộ .md files
-│   ├── {category}/        # Folder theo chủ đề
+│   ├── {category}/        # Folder theo chủ đề (aws-learn, microservice-learn)
 │   │   ├── meta.json      # { "title": "Category Name" }
 │   │   └── *.md           # Các doc files
 │   └── meta.json          # Root: định nghĩa thứ tự sidebar
@@ -28,6 +40,8 @@ repo/
 ├── wrangler.toml
 └── AGENTS.md / CLAUDE.md
 ```
+
+> **multi-tenant** không có subfolder — `.md` files nằm thẳng trong `content/docs/`.
 
 **Naming convention:**
 - Category-based (aws-learn style): `dynamodb.md`, `api-gateway.md`
