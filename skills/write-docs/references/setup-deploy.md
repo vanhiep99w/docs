@@ -215,6 +215,59 @@ export function MermaidDiagram({ chart }: { chart: string }) {
 }
 ```
 
+## Font — JetBrains Mono
+
+Dùng [JetBrains Mono](https://www.jetbrains.com/lp/mono/) cho code blocks và monospace text.
+
+### Cài qua npm (khuyến nghị)
+
+```bash
+npm install @fontsource/jetbrains-mono
+```
+
+Import vào `src/app/layout.tsx`:
+
+```tsx
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/jetbrains-mono/700.css';
+```
+
+Apply trong `src/app/globals.css`:
+
+```css
+code, pre, kbd, samp {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+```
+
+### Hoặc dùng next/font/google
+
+```tsx
+// src/app/layout.tsx
+import { JetBrains_Mono } from 'next/font/google';
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+});
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="vi" className={jetbrainsMono.variable}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+```css
+/* src/app/globals.css */
+code, pre, kbd, samp {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+```
+
 ## Mở rộng Content Area
 
 ```css

@@ -204,6 +204,7 @@ Xem hướng dẫn đầy đủ trong [`references/setup-deploy.md`](references/
 - Mermaid diagram support (cài đặt + remark plugin + component)
 - Fix route conflict Next.js 15.5+
 - Mở rộng content area CSS
+- Font JetBrains Mono cho code blocks (`@fontsource/jetbrains-mono` hoặc `next/font/google`)
 
 **TL;DR:**
 ```bash
