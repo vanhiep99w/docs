@@ -307,6 +307,11 @@
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor; mask-composite: exclude;
     }
+    .portal-kafka::before {
+      background: linear-gradient(135deg, rgba(231,76,60,.4), rgba(52,152,219,.2), transparent 60%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+    }
     .portal:hover::before { opacity: 1; }
 
     /* Inner glow */
@@ -329,6 +334,9 @@
     }
     .portal-mt::after {
       background: radial-gradient(ellipse 80% 100% at 20% 0%, rgba(249,115,22,.06), transparent);
+    }
+    .portal-kafka::after {
+      background: radial-gradient(ellipse 80% 100% at 20% 0%, rgba(231,76,60,.06), transparent);
     }
     .portal:hover::after { opacity: 1; }
 
@@ -368,7 +376,13 @@
       color: var(--orange);
       box-shadow: 0 0 16px rgba(249,115,22,.06);
     }
+    .portal-kafka .portal-icon {
+      background: rgba(231,76,60,.08);
+      color: #e74c3c;
+      box-shadow: 0 0 16px rgba(231,76,60,.06);
+    }
     .portal:hover.portal-mt .portal-icon { box-shadow: 0 0 24px rgba(249,115,22,.15); }
+    .portal:hover.portal-kafka .portal-icon { box-shadow: 0 0 24px rgba(231,76,60,.15); }
     .portal-icon svg { width: 22px; height: 22px; }
 
     .portal-count-block { text-align: right; }
@@ -394,6 +408,11 @@
     }
     .portal-mt .portal-count {
       background: linear-gradient(135deg, var(--orange), var(--fuchsia));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .portal-kafka .portal-count {
+      background: linear-gradient(135deg, #e74c3c, #3498db);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
@@ -477,6 +496,15 @@
     }
     .portal-mt:hover .cta-btn {
       box-shadow: 0 4px 20px rgba(249,115,22,.35);
+      transform: translateY(-1px);
+    }
+    .portal-kafka .cta-btn {
+      color: #fff;
+      background: linear-gradient(135deg, #e74c3c, #3498db);
+      box-shadow: 0 2px 12px rgba(231,76,60,.2);
+    }
+    .portal-kafka:hover .cta-btn {
+      box-shadow: 0 4px 20px rgba(231,76,60,.35);
       transform: translateY(-1px);
     }
     .cta-btn svg { width: 12px; height: 12px; transition: transform .25s; }
@@ -581,15 +609,15 @@
 
     <div class="metrics">
       <div class="metric">
-        <span class="metric-val">143</span>
+        <span class="metric-val">171</span>
         <span class="metric-label">Tài liệu</span>
       </div>
       <div class="metric">
-        <span class="metric-val">33</span>
+        <span class="metric-val">40</span>
         <span class="metric-label">Chủ đề</span>
       </div>
       <div class="metric">
-        <span class="metric-val">3</span>
+        <span class="metric-val">5</span>
         <span class="metric-label">Portals</span>
       </div>
       <div class="metric">
@@ -601,7 +629,7 @@
     <div class="section-header">
       <h2>Chọn lộ trình</h2>
       <div class="line"></div>
-      <span class="count">03</span>
+      <span class="count">05</span>
     </div>
 
     <div class="portals">
@@ -769,6 +797,52 @@
             <div class="portal-stats">
               <div class="pstat"><strong>Multi</strong> tenancy</div>
               <div class="pstat"><strong>SaaS</strong> patterns</div>
+            </div>
+            <div class="cta-btn">
+              Vào học
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+
+        </div>
+      </a>
+
+      <!-- Kafka Learn -->
+      <a href="https://kafka-learn.pages.dev" class="portal portal-kafka">
+        <div class="portal-body">
+
+          <div class="portal-head">
+            <div class="portal-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <path d="M2 10h20"/>
+                <path d="M10 10v8"/>
+                <path d="M16 10v4"/>
+                <path d="M6 18h12"/>
+              </svg>
+            </div>
+            <div class="portal-count-block">
+              <span class="portal-count">28</span>
+              <div class="portal-count-sub">tài liệu</div>
+            </div>
+          </div>
+
+          <div class="portal-content">
+            <div class="portal-title">Kafka Learn</div>
+            <div class="portal-desc">Apache Kafka từ cơ bản đến nâng cao — core concepts, producers & consumers, streams, connect, operations, và Spring Boot integration.</div>
+          </div>
+
+          <div class="portal-tags">
+            <span class="tag">Core Concepts</span>
+            <span class="tag">Streams</span>
+            <span class="tag">Connect</span>
+            <span class="tag">Spring Boot</span>
+          </div>
+
+          <div class="portal-footer">
+            <div class="portal-stats">
+              <div class="pstat"><strong>7</strong> chủ đề</div>
+              <div class="pstat"><strong>28</strong> docs</div>
             </div>
             <div class="cta-btn">
               Vào học
