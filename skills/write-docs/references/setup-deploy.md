@@ -292,3 +292,6 @@ Xóa `src/app/page.tsx`, xử lý redirect trong `[[...slug]]/page.tsx` (xem `pa
 | Build lỗi route conflict | Xóa `src/app/page.tsx` |
 | Content bị giới hạn width | Thêm `#nd-page article { max-width: none }` vào `globals.css` |
 | Component không work trong .md | Kiểm tra đã register trong `page.tsx` components prop |
+| Sidebar thứ tự sai sau khi tạo folder | Thêm `"pages"` array vào parent `meta.json` liệt kê cả file lẫn folder theo thứ tự muốn hiển thị |
+| Folder mất title trên sidebar | Thêm `"title"` vào `meta.json` bên trong folder |
+| `prepare-content.mjs` xóa mất cấu hình meta.json | Thêm guard `if (!existsSync(path))` trước khi ghi file |

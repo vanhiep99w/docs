@@ -4,7 +4,8 @@ description: >
   Hướng dẫn viết tài liệu kỹ thuật tiếng Việt chuẩn structure, chi tiết đúng mức, và deploy lên Cloudflare Pages/Workers.
   Dùng khi: (1) Tạo doc mới cho aws-learn, microservice-learn hoặc repo tương tự; (2) Review/cải thiện doc hiện có;
   (3) Setup repo docs mới với Next.js + Fumadocs + Cloudflare; (4) Cần template hoặc checklist để viết doc kỹ thuật tiếng Việt;
-  (5) Dùng Fumadocs components (Callout, Cards, Steps, Tabs, Accordion, TypeTable, Mermaid) trong file .md.
+  (5) Dùng Fumadocs components (Callout, Cards, Steps, Tabs, Accordion, TypeTable, Mermaid) trong file .md;
+  (6) Tạo sub-page/child page structure (file → folder/index.md + child pages) và quản lý meta.json sidebar ordering.
 ---
 
 # write-docs
@@ -93,6 +94,138 @@ Không dịch sai nghĩa — nếu không có từ tiếng Việt phù hợp, gi
 
 > [!IMPORTANT]
 > Nếu file không có trong `"pages"` của `meta.json` → **doc sẽ không xuất hiện trên sidebar**, dù file tồn tại.
+
+### Sidebar khi mix file và folder
+
+Fumadocs sort **folders khác với files** khi không có `"pages"` array. Để giữ đúng thứ tự khi một file được chuyển thành folder (xem phần dưới), **bắt buộc thêm `"pages"` array vào root hoặc parent `meta.json`** liệt kê cả tên folder lẫn tên file theo thứ tự muốn hiển thị:
+
+```json
+{
+  "pages": [
+    "01-overview",
+    "02-isolation-models",
+    "03-data-partitioning",
+    "04-tenant-identity"
+  ]
+}
+```
+
+> Nếu `"pages"` array đã tồn tại — chỉ thêm entry mới vào đúng vị trí, **không xóa hay ghi đè toàn bộ file**.
+
+## Sub-page / Child Page Structure (Fumadocs)
+
+Dùng khi một section trong một `.md` file quá dài hoặc cần tách thành nhiều trang con hiển thị dạng **collapsible group** trong sidebar.
+
+### Khi nào nên tách
+
+- Section hiện tại chỉ có bảng tóm tắt, cần một trang riêng giải thích chi tiết
+- Nội dung có thể đứng độc lập (ví dụ: danh sách kỹ thuật, runbook, case study phụ)
+- Muốn sidebar hiển thị dạng group thay vì flat list
+
+### Pattern: file → folder/index + child pages
+
+```
+Trước:
+content/docs/
+└── 02-isolation-models.md
+
+Sau:
+content/docs/
+└── 02-isolation-models/
+    ├── index.md               ← nội dung gốc của 02-isolation-models.md
+    ├── isolation-techniques.md  ← trang con mới
+    └── meta.json              ← định nghĩa group title + thứ tự pages con
+```
+
+**Kết quả sidebar:**
+```
+├── Tổng quan
+├── Isolation Models            ← collapsible group (từ folder)
+│   ├── Tenant Isolation Models ← index.md
+│   └── Các Kỹ thuật Enforce Isolation ← isolation-techniques.md
+├── Data Partitioning
+└── ...
+```
+
+### Các bước thực hiện
+
+**Bước 1 — Chuyển file thành folder:**
+```bash
+# Tạo thư mục và di chuyển file
+mkdir content/docs/02-isolation-models
+mv content/docs/02-isolation-models.md content/docs/02-isolation-models/index.md
+```
+
+**Bước 2 — Tạo trang con:**
+
+Tạo `content/docs/02-isolation-models/isolation-techniques.md` với frontmatter đầy đủ:
+```yaml
+---
+title: "Các Kỹ thuật Enforce Isolation"
+description: "Chi tiết các kỹ thuật..."
+---
+```
+
+**Bước 3 — Tạo `meta.json` trong folder con:**
+
+`content/docs/02-isolation-models/meta.json`:
+```json
+{
+  "title": "Isolation Models",
+  "pages": [
+    "index",
+    "isolation-techniques"
+  ]
+}
+```
+
+- `"title"` → tên hiển thị của collapsible group trên sidebar
+- `"pages"` → thứ tự các trang con; `"index"` luôn là trang đầu tiên (= `index.md`)
+
+**Bước 4 — Fix thứ tự sidebar ở root/parent `meta.json`:**
+
+Khi chuyển file thành folder, Fumadocs có thể sort lại. Thêm `"pages"` array vào `meta.json` cấp cha nếu chưa có:
+```json
+{
+  "pages": [
+    "01-overview",
+    "02-isolation-models",
+    "03-data-partitioning"
+  ]
+}
+```
+
+> [!IMPORTANT]
+> Nếu `meta.json` cha **đã có** `"pages"` array → chỉ kiểm tra xem `"02-isolation-models"` đã trong list chưa. Tên folder dùng như tên file (không có extension). Không cần thêm gì nếu đã có.
+
+### Quy tắc không ghi đè meta.json
+
+**Không bao giờ overwrite `meta.json` đã tồn tại.** Luôn:
+1. Đọc nội dung hiện tại trước
+2. Chỉ thêm `"pages"` array nếu chưa có, hoặc thêm entry mới vào đúng vị trí trong array đã có
+3. Giữ nguyên các field khác (`"title"`, custom fields)
+
+Áp dụng cho cả script tự động (ví dụ `prepare-content.mjs`) — xem phần dưới.
+
+## Scripts tự động (prepare-content.mjs)
+
+Nếu repo có script sinh meta.json tự động khi dev/build, script **phải kiểm tra trước khi ghi**:
+
+```js
+// Đúng — không ghi đè nếu đã tồn tại
+import { existsSync } from 'fs';
+
+if (!existsSync(metaJsonPath)) {
+  fs.writeFileSync(metaJsonPath, JSON.stringify(content, null, 2));
+}
+```
+
+```js
+// Sai — ghi đè mọi lúc, xóa mất cấu hình tay
+fs.writeFileSync(metaJsonPath, JSON.stringify(content, null, 2));
+```
+
+Nếu script cần update `"pages"` array, chỉ thêm entry còn thiếu, không reset toàn bộ array.
 
 ## Document Structure Chuẩn
 
@@ -232,3 +365,15 @@ pages_build_output_dir = "./dist"
 6. **Thêm ngay vào `meta.json`** của category (đúng vị trí thứ tự, không append cuối mù quáng)
 7. Nếu category mới: thêm category vào root `meta.json` theo thứ tự logic
 8. Chạy `npm run dev` — kiểm tra doc xuất hiện đúng vị trí trên sidebar trước khi commit
+
+## Workflow Tách Section thành Child Page
+
+Dùng khi section hiện có quá sơ sài và cần trang riêng chi tiết hơn, hiển thị dạng child trong sidebar.
+
+1. **Đánh giá:** section chỉ có bảng tóm tắt / cần nội dung độc lập → phù hợp tách
+2. **Chuyển file → folder:** `N-topic.md` → `N-topic/index.md` (giữ nguyên nội dung gốc)
+3. **Tạo trang con:** `N-topic/child-name.md` với frontmatter đầy đủ và nội dung chi tiết
+4. **Tạo `N-topic/meta.json`:** định nghĩa `"title"` (tên group) và `"pages": ["index", "child-name"]`
+5. **Kiểm tra parent `meta.json`:** nếu chưa có `"pages"` array → thêm vào để fix sidebar order; nếu đã có → chỉ verify tên folder đã trong list
+6. **Không overwrite bất kỳ `meta.json` nào** — đọc trước, patch sau
+7. Chạy `npm run dev` — verify sidebar hiển thị đúng group collapsible
