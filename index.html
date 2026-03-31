@@ -3,35 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tbh · docs</title>
-  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS và Microservices Architecture" />
+  <title>tbh · docs — Tài liệu kỹ thuật tiếng Việt</title>
+  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Microservices, Kafka, SQL, System Design và Multi-Tenant Architecture." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23a78bfa'/><stop offset='100%25' stop-color='%2338bdf8'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='%23111118'/><text x='16' y='22' text-anchor='middle' font-family='monospace' font-weight='700' font-size='13' fill='url(%23g)'>tb</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg:       #0b0b10;
-      --surface:  #13131a;
-      --card:     #16161f;
-      --card-h:   #1a1a25;
-      --border:   rgba(255,255,255,.06);
+      --bg: #06060b;
+      --surface: #0e0e16;
+      --card: rgba(17,17,28,.65);
+      --card-h: rgba(22,22,36,.8);
+      --border: rgba(255,255,255,.055);
       --border-h: rgba(255,255,255,.12);
-      --text:     #eeeef2;
-      --text-sec: rgba(238,238,242,.6);
-      --muted:    rgba(238,238,242,.35);
-      --violet:   #a78bfa;
-      --indigo:   #818cf8;
-      --sky:      #38bdf8;
-      --teal:     #2dd4bf;
-      --rose:     #fb7185;
-      --amber:    #fbbf24;
-      --orange:   #f97316;
-      --fuchsia:  #e879f9;
+      --text: #f0f0f5;
+      --text-sec: rgba(240,240,245,.55);
+      --muted: rgba(240,240,245,.3);
+      --violet: #a78bfa;
+      --indigo: #818cf8;
+      --sky: #38bdf8;
+      --teal: #2dd4bf;
+      --rose: #fb7185;
+      --amber: #fbbf24;
+      --orange: #f97316;
+      --fuchsia: #e879f9;
+      --radius: 20px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; }
+    html { font-size: 16px; scroll-behavior: smooth; }
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background: var(--bg); color: var(--text);
@@ -39,598 +40,296 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Ambient aurora background ── */
-    .aurora {
+    /* ── Mesh gradient background ── */
+    .bg-mesh {
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      overflow: hidden;
-      contain: layout style;
+      background:
+        radial-gradient(ellipse 50% 40% at 15% 10%, rgba(167,139,250,.12), transparent),
+        radial-gradient(ellipse 40% 50% at 85% 20%, rgba(56,189,248,.1), transparent),
+        radial-gradient(ellipse 45% 35% at 50% 80%, rgba(45,212,191,.07), transparent),
+        radial-gradient(ellipse 60% 50% at 70% 60%, rgba(232,121,249,.04), transparent);
     }
-    .aurora-blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(70px);
-      opacity: .12;
-      will-change: transform;
-      transform: translateZ(0);
-    }
-    .aurora-blob:nth-child(1) {
-      width: 480px; height: 480px;
-      top: -200px; left: -100px;
-      background: var(--violet);
-      animation: drift1 20s ease-in-out infinite;
-    }
-    .aurora-blob:nth-child(2) {
-      width: 400px; height: 400px;
-      top: -100px; right: -150px;
-      background: var(--sky);
-      animation: drift2 25s ease-in-out infinite;
-    }
-    .aurora-blob:nth-child(3) {
-      width: 360px; height: 360px;
-      bottom: -100px; left: 30%;
-      background: var(--teal);
-      opacity: .08;
-      animation: drift3 22s ease-in-out infinite;
-    }
-
-    /* Static star field */
-    .aurora::before {
+    .bg-mesh::before {
       content: '';
       position: absolute; inset: 0;
       background-image:
-        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,.55) 0%, transparent 100%),
-        radial-gradient(1px 1px at 23% 42%, rgba(167,139,250,.6) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 37% 8%, rgba(255,255,255,.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 48% 72%, rgba(56,189,248,.55) 0%, transparent 100%),
-        radial-gradient(1px 1px at 55% 28%, rgba(255,255,255,.45) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 62% 55%, rgba(45,212,191,.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 71% 18%, rgba(255,255,255,.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 80% 38%, rgba(167,139,250,.5) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 88% 82%, rgba(255,255,255,.45) 0%, transparent 100%),
-        radial-gradient(1px 1px at 94% 12%, rgba(56,189,248,.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 5% 60%, rgba(255,255,255,.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 15% 88%, rgba(45,212,191,.5) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 28% 65%, rgba(255,255,255,.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 42% 90%, rgba(167,139,250,.45) 0%, transparent 100%),
-        radial-gradient(1px 1px at 57% 48%, rgba(255,255,255,.55) 0%, transparent 100%),
-        radial-gradient(1px 1px at 68% 76%, rgba(56,189,248,.5) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 75% 5%, rgba(255,255,255,.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 83% 62%, rgba(45,212,191,.45) 0%, transparent 100%),
-        radial-gradient(1px 1px at 91% 48%, rgba(255,255,255,.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 3% 30%, rgba(167,139,250,.55) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 18% 5%, rgba(255,255,255,.45) 0%, transparent 100%),
-        radial-gradient(1px 1px at 32% 22%, rgba(56,189,248,.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 45% 55%, rgba(255,255,255,.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 60% 12%, rgba(45,212,191,.55) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 77% 44%, rgba(255,255,255,.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 85% 22%, rgba(167,139,250,.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 97% 70%, rgba(255,255,255,.45) 0%, transparent 100%),
-        radial-gradient(1px 1px at 12% 52%, rgba(56,189,248,.45) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 50% 35%, rgba(255,255,255,.55) 0%, transparent 100%),
-        radial-gradient(1px 1px at 66% 92%, rgba(167,139,250,.5) 0%, transparent 100%);
-      opacity: .85;
+        linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse 70% 50% at 50% 0%, black, transparent 75%);
     }
-
-    /* Subtle grid */
-    .aurora::after {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 80%);
-      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 80%);
+    .bg-noise {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      opacity: .025;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
     /* ── Layout ── */
-    .wrap { position: relative; z-index: 1; max-width: 1020px; margin: 0 auto; padding: 0 40px; }
+    .wrap { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 0 32px; }
 
     /* ── Nav ── */
     nav {
-      padding: 28px 0;
+      padding: 24px 0;
       display: flex; align-items: center; justify-content: space-between;
       opacity: 0; animation: fadeIn .5s .05s forwards;
     }
-    .logo {
-      display: flex; align-items: center; gap: 11px;
-      text-decoration: none; color: var(--text);
-    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
     .logo-mark {
-      width: 32px; height: 32px; border-radius: 9px;
-      background: linear-gradient(135deg, var(--violet) 0%, var(--sky) 100%);
+      width: 30px; height: 30px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--violet), var(--sky));
       display: flex; align-items: center; justify-content: center;
-      font-family: 'JetBrains Mono', monospace; font-size: .6rem; font-weight: 500;
-      color: #0b0b10;
-      box-shadow: 0 0 20px rgba(167,139,250,.2), 0 0 4px rgba(56,189,248,.15);
+      font-family: 'JetBrains Mono', monospace; font-size: .55rem; font-weight: 500;
+      color: #06060b;
     }
-    .logo-name {
-      font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .95rem;
-      letter-spacing: -.01em;
-    }
+    .logo-name { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .9rem; }
     .logo-name span { color: var(--muted); font-weight: 400; }
-    .nav-right { display: flex; align-items: center; gap: 12px; }
     .nav-pill {
-      display: flex; align-items: center; gap: 8px;
-      font-family: 'JetBrains Mono', monospace; font-size: .6rem;
-      color: var(--muted); letter-spacing: .08em;
-      padding: 6px 14px;
-      background: rgba(255,255,255,.03);
-      border: 1px solid var(--border);
-      border-radius: 99px;
-      backdrop-filter: blur(8px);
+      display: flex; align-items: center; gap: 7px;
+      font-family: 'JetBrains Mono', monospace; font-size: .58rem;
+      color: var(--muted); letter-spacing: .06em;
+      padding: 5px 12px; border-radius: 99px;
+      background: rgba(255,255,255,.03); border: 1px solid var(--border);
     }
     .live-dot {
       width: 5px; height: 5px; border-radius: 50%;
-      background: var(--teal);
-      box-shadow: 0 0 8px var(--teal);
+      background: var(--teal); box-shadow: 0 0 8px var(--teal);
       animation: pulse 2.5s ease-in-out infinite;
     }
 
     /* ── Hero ── */
-    .hero {
-      padding: 72px 0 56px;
-      opacity: 0; animation: fadeUp .6s .15s forwards;
-    }
+    .hero { padding: 64px 0 48px; opacity: 0; animation: fadeUp .6s .1s forwards; }
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: 'Outfit', sans-serif; font-size: .75rem; font-weight: 500;
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Outfit', sans-serif; font-size: .72rem; font-weight: 500;
       color: var(--violet);
-      padding: 6px 16px 6px 12px;
-      background: rgba(167,139,250,.08);
-      border: 1px solid rgba(167,139,250,.15);
-      border-radius: 99px;
-      margin-bottom: 32px;
+      padding: 5px 14px 5px 10px;
+      background: rgba(167,139,250,.06); border: 1px solid rgba(167,139,250,.12);
+      border-radius: 99px; margin-bottom: 28px;
     }
-    .hero-badge svg { width: 14px; height: 14px; }
-    .hero-title {
+    .hero-badge svg { width: 13px; height: 13px; }
+    .hero h1 {
       font-family: 'Outfit', sans-serif; font-weight: 800;
-      font-size: clamp(3rem, 7vw, 5.5rem); line-height: .95;
-      letter-spacing: -.04em; margin-bottom: 28px;
+      font-size: clamp(2.8rem, 6.5vw, 5rem); line-height: .95;
+      letter-spacing: -.04em; margin-bottom: 24px;
     }
-    .hero-title .gradient-text {
-      display: inline;
-      background: linear-gradient(135deg, var(--violet) 0%, var(--indigo) 25%, var(--sky) 50%, var(--teal) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .grad {
+      background: linear-gradient(135deg, var(--violet) 0%, var(--indigo) 30%, var(--sky) 60%, var(--teal) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .hero-desc {
-      font-size: 1.05rem; line-height: 1.8; color: var(--text-sec); font-weight: 400;
-      max-width: 500px;
+    .hero p {
+      font-size: 1rem; line-height: 1.75; color: var(--text-sec); max-width: 480px;
     }
 
-    /* ── Metrics ── */
-    .metrics {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden; margin-bottom: 56px;
-      opacity: 0; animation: fadeUp .6s .25s forwards;
+    /* ── Stats row ── */
+    .stats {
+      display: flex; gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; margin-bottom: 48px;
+      opacity: 0; animation: fadeUp .6s .2s forwards;
     }
-    .metric {
-      background: var(--surface);
-      padding: 22px 24px;
-      text-align: center;
+    .stat {
+      flex: 1; background: var(--surface); padding: 18px 20px; text-align: center;
       transition: background .3s;
     }
-    .metric:hover { background: var(--card); }
-    .metric-val {
-      font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.6rem;
-      line-height: 1; display: block;
+    .stat:hover { background: rgba(22,22,36,.6); }
+    .stat-val {
+      font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.5rem;
+      display: block; line-height: 1;
       background: linear-gradient(135deg, var(--text) 60%, var(--text-sec));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .metric-label {
-      font-family: 'JetBrains Mono', monospace; font-size: .55rem;
+    .stat-lbl {
+      font-family: 'JetBrains Mono', monospace; font-size: .52rem;
       color: var(--muted); letter-spacing: .1em; text-transform: uppercase;
-      margin-top: 6px; display: block;
+      margin-top: 5px; display: block;
     }
 
-    /* ── Section header ── */
-    .section-header {
-      display: flex; align-items: center; gap: 14px;
-      margin-bottom: 24px;
+    /* ── Section heading ── */
+    .sec-head {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px;
+      opacity: 0; animation: fadeUp .6s .25s forwards;
+    }
+    .sec-head h2 { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1rem; }
+    .sec-head .ln { flex: 1; height: 1px; background: linear-gradient(90deg, var(--border-h), transparent 80%); }
+    .sec-head .cnt {
+      font-family: 'JetBrains Mono', monospace; font-size: .58rem;
+      color: var(--muted); letter-spacing: .06em;
+      padding: 3px 9px; background: rgba(255,255,255,.03);
+      border: 1px solid var(--border); border-radius: 6px;
+    }
+
+    /* ── Bento grid ── */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      padding-bottom: 64px;
       opacity: 0; animation: fadeUp .6s .3s forwards;
     }
-    .section-header h2 {
-      font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.1rem;
-      letter-spacing: -.01em;
-    }
-    .section-header .line {
-      flex: 1; height: 1px;
-      background: linear-gradient(90deg, var(--border-h), transparent 80%);
-    }
-    .section-header .count {
-      font-family: 'JetBrains Mono', monospace; font-size: .6rem;
-      color: var(--muted); letter-spacing: .08em;
-      padding: 4px 10px;
-      background: rgba(255,255,255,.03);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-    }
+    .bento .card:nth-child(1) { grid-column: span 7; }
+    .bento .card:nth-child(2) { grid-column: span 5; }
+    .bento .card:nth-child(3) { grid-column: span 4; }
+    .bento .card:nth-child(4) { grid-column: span 4; }
+    .bento .card:nth-child(5) { grid-column: span 4; }
+    .bento .card:nth-child(6) { grid-column: span 6; }
+    .bento .card:nth-child(7) { grid-column: span 6; }
 
-    /* ── Portal cards ── */
-    .portals {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
-      padding-bottom: 72px;
-      opacity: 0; animation: fadeUp .6s .35s forwards;
-    }
-
-    .portal {
+    /* ── Cards ── */
+    .card {
       position: relative; overflow: hidden;
       text-decoration: none; color: var(--text);
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: var(--radius);
+      backdrop-filter: blur(16px);
       display: flex; flex-direction: column;
-      transition: border-color .3s, transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s;
+      transition: border-color .35s, transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s;
     }
-    .portal:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 64px rgba(0,0,0,.45);
+      border-color: var(--border-h);
     }
-    .portal:active { transform: translateY(-2px); }
-
-    /* Glow border on hover */
-    .portal::before {
-      content: '';
-      position: absolute; inset: -1px;
-      border-radius: 20px;
-      padding: 1px;
-      opacity: 0;
-      transition: opacity .4s;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .portal-aws::before {
-      background: linear-gradient(135deg, rgba(167,139,250,.4), rgba(56,189,248,.2), transparent 60%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-    }
-    .portal-ms::before {
-      background: linear-gradient(135deg, rgba(45,212,191,.4), rgba(129,140,248,.2), transparent 60%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-    }
-    .portal-beads::before {
-      background: linear-gradient(135deg, rgba(251,191,36,.4), rgba(251,113,133,.2), transparent 60%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-    }
-    .portal-mt::before {
-      background: linear-gradient(135deg, rgba(249,115,22,.4), rgba(232,121,249,.2), transparent 60%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-    }
-    .portal-kafka::before {
-      background: linear-gradient(135deg, rgba(231,76,60,.4), rgba(52,152,219,.2), transparent 60%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-    }
-    .portal-sql::before {
-      background: linear-gradient(135deg, rgba(59,130,246,.4), rgba(168,85,247,.2), transparent 60%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-    }
-    .portal-sd::before {
-      background: linear-gradient(135deg, rgba(16,185,129,.4), rgba(132,204,22,.2), transparent 60%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-    }
-    .portal:hover::before { opacity: 1; }
-
-    /* Inner glow */
-    .portal::after {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 180px;
-      opacity: 0;
-      transition: opacity .4s;
+    .card::before {
+      content: ''; position: absolute; inset: 0;
+      border-radius: var(--radius);
+      opacity: 0; transition: opacity .4s;
       pointer-events: none;
     }
-    .portal-aws::after {
-      background: radial-gradient(ellipse 80% 100% at 20% 0%, rgba(167,139,250,.06), transparent);
-    }
-    .portal-ms::after {
-      background: radial-gradient(ellipse 80% 100% at 20% 0%, rgba(45,212,191,.06), transparent);
-    }
-    .portal-beads::after {
-      background: radial-gradient(ellipse 80% 100% at 20% 0%, rgba(251,191,36,.06), transparent);
-    }
-    .portal-mt::after {
-      background: radial-gradient(ellipse 80% 100% at 20% 0%, rgba(249,115,22,.06), transparent);
-    }
-    .portal-kafka::after {
-      background: radial-gradient(ellipse 80% 100% at 20% 0%, rgba(231,76,60,.06), transparent);
-    }
-    .portal-sql::after {
-      background: radial-gradient(ellipse 80% 100% at 20% 0%, rgba(59,130,246,.06), transparent);
-    }
-    .portal-sd::after {
-      background: radial-gradient(ellipse 80% 100% at 20% 0%, rgba(16,185,129,.06), transparent);
-    }
-    .portal:hover::after { opacity: 1; }
+    .card:hover::before { opacity: 1; }
 
-    .portal-body {
-      position: relative; z-index: 2;
-      padding: 32px; display: flex; flex-direction: column; gap: 24px; flex: 1;
-    }
+    /* Card accent colors */
+    .c-aws   { --ac: 167,139,250; --ac2: 56,189,248; }
+    .c-ms    { --ac: 45,212,191;  --ac2: 129,140,248; }
+    .c-beads { --ac: 251,191,36;  --ac2: 251,113,133; }
+    .c-mt    { --ac: 249,115,22;  --ac2: 232,121,249; }
+    .c-sql   { --ac: 59,130,246;  --ac2: 168,85,247; }
+    .c-kafka { --ac: 231,76,60;   --ac2: 52,152,219; }
+    .c-sd    { --ac: 16,185,129;  --ac2: 132,204,22; }
 
-    .portal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-    .portal-icon {
-      width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+    .card::before {
+      background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(var(--ac),.08), transparent 70%);
+    }
+    .card::after {
+      content: ''; position: absolute; inset: -1px;
+      border-radius: var(--radius); padding: 1px;
+      background: linear-gradient(135deg, rgba(var(--ac),.35), rgba(var(--ac2),.15), transparent 55%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity: 0; transition: opacity .4s; pointer-events: none; z-index: 1;
+    }
+    .card:hover::after { opacity: 1; }
+
+    .card-body { position: relative; z-index: 2; padding: 28px; display: flex; flex-direction: column; gap: 20px; flex: 1; }
+
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .card-icon {
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      border: 1px solid var(--border);
+      background: rgba(var(--ac),.08); color: rgb(var(--ac));
+      border: 1px solid rgba(var(--ac),.1);
       transition: transform .3s, box-shadow .3s;
     }
-    .portal:hover .portal-icon { transform: scale(1.08) rotate(-2deg); }
-    .portal-aws .portal-icon {
-      background: rgba(167,139,250,.08);
-      color: var(--violet);
-      box-shadow: 0 0 16px rgba(167,139,250,.06);
-    }
-    .portal-ms .portal-icon {
-      background: rgba(45,212,191,.08);
-      color: var(--teal);
-      box-shadow: 0 0 16px rgba(45,212,191,.06);
-    }
-    .portal-beads .portal-icon {
-      background: rgba(251,191,36,.08);
-      color: var(--amber);
-      box-shadow: 0 0 16px rgba(251,191,36,.06);
-    }
-    .portal:hover.portal-aws .portal-icon { box-shadow: 0 0 24px rgba(167,139,250,.15); }
-    .portal:hover.portal-ms .portal-icon { box-shadow: 0 0 24px rgba(45,212,191,.15); }
-    .portal:hover.portal-beads .portal-icon { box-shadow: 0 0 24px rgba(251,191,36,.15); }
-    .portal-mt .portal-icon {
-      background: rgba(249,115,22,.08);
-      color: var(--orange);
-      box-shadow: 0 0 16px rgba(249,115,22,.06);
-    }
-    .portal-kafka .portal-icon {
-      background: rgba(231,76,60,.08);
-      color: #e74c3c;
-      box-shadow: 0 0 16px rgba(231,76,60,.06);
-    }
-    .portal-sql .portal-icon {
-      background: rgba(59,130,246,.08);
-      color: #3b82f6;
-      box-shadow: 0 0 16px rgba(59,130,246,.06);
-    }
-    .portal-sd .portal-icon {
-      background: rgba(16,185,129,.08);
-      color: #10b981;
-      box-shadow: 0 0 16px rgba(16,185,129,.06);
-    }
-    .portal:hover.portal-mt .portal-icon { box-shadow: 0 0 24px rgba(249,115,22,.15); }
-    .portal:hover.portal-kafka .portal-icon { box-shadow: 0 0 24px rgba(231,76,60,.15); }
-    .portal:hover.portal-sql .portal-icon { box-shadow: 0 0 24px rgba(59,130,246,.15); }
-    .portal:hover.portal-sd .portal-icon { box-shadow: 0 0 24px rgba(16,185,129,.15); }
-    .portal-icon svg { width: 22px; height: 22px; }
+    .card:hover .card-icon { transform: scale(1.06) rotate(-2deg); box-shadow: 0 0 20px rgba(var(--ac),.15); }
+    .card-icon svg { width: 20px; height: 20px; }
 
-    .portal-count-block { text-align: right; }
-    .portal-count {
+    .card-num-block { text-align: right; }
+    .card-num {
       font-family: 'Outfit', sans-serif; font-weight: 800;
-      font-size: 3rem; line-height: 1; display: block;
-      letter-spacing: -.03em;
+      font-size: 2.6rem; line-height: 1; letter-spacing: -.03em;
+      background: linear-gradient(135deg, rgb(var(--ac)), rgb(var(--ac2)));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .portal-aws .portal-count {
-      background: linear-gradient(135deg, var(--violet), var(--sky));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .portal-ms .portal-count {
-      background: linear-gradient(135deg, var(--teal), var(--indigo));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .portal-beads .portal-count {
-      background: linear-gradient(135deg, var(--amber), var(--rose));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .portal-mt .portal-count {
-      background: linear-gradient(135deg, var(--orange), var(--fuchsia));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .portal-kafka .portal-count {
-      background: linear-gradient(135deg, #e74c3c, #3498db);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .portal-sql .portal-count {
-      background: linear-gradient(135deg, #3b82f6, #a855f7);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .portal-sd .portal-count {
-      background: linear-gradient(135deg, #10b981, #84cc16);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .portal-count-sub {
-      font-family: 'JetBrains Mono', monospace; font-size: .55rem;
+    .card-num-sub {
+      font-family: 'JetBrains Mono', monospace; font-size: .5rem;
       color: var(--muted); letter-spacing: .1em; text-transform: uppercase;
     }
 
-    .portal-title {
+    .card-title {
       font-family: 'Outfit', sans-serif; font-weight: 700;
-      font-size: 1.4rem; letter-spacing: -.02em; margin-bottom: 10px;
+      font-size: 1.25rem; letter-spacing: -.015em; margin-bottom: 6px;
     }
-    .portal-desc {
-      font-size: .86rem; line-height: 1.8; color: var(--text-sec); font-weight: 400;
-    }
+    .card-desc { font-size: .82rem; line-height: 1.75; color: var(--text-sec); }
 
-    .portal-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
     .tag {
-      font-family: 'JetBrains Mono', monospace; font-size: .58rem; font-weight: 500;
-      letter-spacing: .06em; text-transform: uppercase;
-      padding: 4px 10px; border-radius: 6px;
-      background: rgba(255,255,255,.04); color: var(--text-sec);
+      font-family: 'JetBrains Mono', monospace; font-size: .55rem; font-weight: 500;
+      letter-spacing: .05em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 5px;
+      background: rgba(255,255,255,.035); color: var(--text-sec);
       border: 1px solid var(--border);
       transition: background .2s, border-color .2s;
     }
-    .portal:hover .tag {
-      background: rgba(255,255,255,.06);
-      border-color: var(--border-h);
-    }
+    .card:hover .tag { background: rgba(255,255,255,.06); border-color: var(--border-h); }
 
-    .portal-footer {
+    .card-foot {
       display: flex; align-items: center; justify-content: space-between;
-      padding-top: 20px; border-top: 1px solid var(--border);
+      padding-top: 16px; border-top: 1px solid var(--border); margin-top: auto;
     }
-    .portal-stats { display: flex; gap: 16px; }
-    .pstat {
-      font-family: 'JetBrains Mono', monospace; font-size: .6rem;
-      color: var(--muted);
-    }
-    .pstat strong { color: var(--text-sec); }
+    .card-stats { display: flex; gap: 14px; }
+    .ps { font-family: 'JetBrains Mono', monospace; font-size: .55rem; color: var(--muted); }
+    .ps strong { color: var(--text-sec); }
 
-    .cta-btn {
-      font-family: 'Outfit', sans-serif; font-size: .75rem; font-weight: 600;
-      letter-spacing: .03em;
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 9px 18px; border-radius: 10px;
-      border: none;
-      transition: gap .25s, box-shadow .25s, transform .25s;
+    .cta {
+      font-family: 'Outfit', sans-serif; font-size: .7rem; font-weight: 600;
+      letter-spacing: .02em;
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 7px 14px; border-radius: 9px; border: none;
+      color: #06060b;
+      background: linear-gradient(135deg, rgb(var(--ac)), rgb(var(--ac2)));
+      box-shadow: 0 2px 10px rgba(var(--ac),.2);
+      transition: box-shadow .25s, transform .25s;
     }
-    .portal-aws .cta-btn {
-      color: #0b0b10;
-      background: linear-gradient(135deg, var(--violet), var(--indigo));
-      box-shadow: 0 2px 12px rgba(167,139,250,.2);
-    }
-    .portal-aws:hover .cta-btn {
-      box-shadow: 0 4px 20px rgba(167,139,250,.35);
-      transform: translateY(-1px);
-    }
-    .portal-ms .cta-btn {
-      color: #0b0b10;
-      background: linear-gradient(135deg, var(--teal), var(--sky));
-      box-shadow: 0 2px 12px rgba(45,212,191,.2);
-    }
-    .portal-ms:hover .cta-btn {
-      box-shadow: 0 4px 20px rgba(45,212,191,.35);
-      transform: translateY(-1px);
-    }
-    .portal-beads .cta-btn {
-      color: #0b0b10;
-      background: linear-gradient(135deg, var(--amber), var(--rose));
-      box-shadow: 0 2px 12px rgba(251,191,36,.2);
-    }
-    .portal-beads:hover .cta-btn {
-      box-shadow: 0 4px 20px rgba(251,191,36,.35);
-      transform: translateY(-1px);
-    }
-    .portal-mt .cta-btn {
-      color: #0b0b10;
-      background: linear-gradient(135deg, var(--orange), var(--fuchsia));
-      box-shadow: 0 2px 12px rgba(249,115,22,.2);
-    }
-    .portal-mt:hover .cta-btn {
-      box-shadow: 0 4px 20px rgba(249,115,22,.35);
-      transform: translateY(-1px);
-    }
-    .portal-kafka .cta-btn {
-      color: #fff;
-      background: linear-gradient(135deg, #e74c3c, #3498db);
-      box-shadow: 0 2px 12px rgba(231,76,60,.2);
-    }
-    .portal-kafka:hover .cta-btn {
-      box-shadow: 0 4px 20px rgba(231,76,60,.35);
-      transform: translateY(-1px);
-    }
-    .portal-sql .cta-btn {
-      color: #fff;
-      background: linear-gradient(135deg, #3b82f6, #a855f7);
-      box-shadow: 0 2px 12px rgba(59,130,246,.2);
-    }
-    .portal-sql:hover .cta-btn {
-      box-shadow: 0 4px 20px rgba(59,130,246,.35);
-      transform: translateY(-1px);
-    }
-    .portal-sd .cta-btn {
-      color: #0b0b10;
-      background: linear-gradient(135deg, #10b981, #84cc16);
-      box-shadow: 0 2px 12px rgba(16,185,129,.2);
-    }
-    .portal-sd:hover .cta-btn {
-      box-shadow: 0 4px 20px rgba(16,185,129,.35);
-      transform: translateY(-1px);
-    }
-    .cta-btn svg { width: 12px; height: 12px; transition: transform .25s; }
-    .portal:hover .cta-btn svg { transform: translateX(3px); }
+    .card:hover .cta { box-shadow: 0 4px 18px rgba(var(--ac),.3); transform: translateY(-1px); }
+    .c-kafka .cta, .c-sql .cta { color: #fff; }
+    .cta svg { width: 11px; height: 11px; transition: transform .25s; }
+    .card:hover .cta svg { transform: translateX(3px); }
 
     /* ── Footer ── */
     footer {
       position: relative; z-index: 1;
       border-top: 1px solid var(--border);
-      padding: 24px 0 32px;
+      padding: 20px 0 28px;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .footer-brand {
-      font-family: 'JetBrains Mono', monospace; font-size: .62rem;
-      color: var(--muted); letter-spacing: .04em;
-    }
-    .footer-link {
-      font-family: 'JetBrains Mono', monospace; font-size: .62rem;
+    .foot-brand { font-family: 'JetBrains Mono', monospace; font-size: .58rem; color: var(--muted); }
+    .foot-link {
+      font-family: 'JetBrains Mono', monospace; font-size: .58rem;
       color: var(--muted); text-decoration: none;
-      display: inline-flex; align-items: center; gap: 6px;
+      display: inline-flex; align-items: center; gap: 5px;
       transition: color .25s;
     }
-    .footer-link:hover { color: var(--text); }
-    .footer-link svg { width: 14px; height: 14px; }
+    .foot-link:hover { color: var(--text); }
+    .foot-link svg { width: 13px; height: 13px; }
 
     /* ── Animations ── */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes pulse  { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
-    @keyframes drift1 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(60px, 30px) scale(1.1); }
-      66% { transform: translate(-30px, -20px) scale(.95); }
-    }
-    @keyframes drift2 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(-40px, 40px) scale(.9); }
-      66% { transform: translate(30px, -30px) scale(1.1); }
-    }
-    @keyframes drift3 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(50px, -30px) scale(1.15); }
-    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.3; } }
 
     /* ── Responsive ── */
-    @media (max-width: 700px) {
-      .wrap { padding: 0 20px; }
-      .hero { padding: 48px 0 40px; }
-      .hero-title { font-size: 2.8rem; }
-      .metrics { grid-template-columns: repeat(2, 1fr); }
-      .portals { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 10px; text-align: center; }
+    @media (max-width: 768px) {
+      .wrap { padding: 0 18px; }
+      .hero { padding: 40px 0 32px; }
+      .hero h1 { font-size: 2.4rem; }
+      .stats { flex-wrap: wrap; }
+      .stat { flex: 1 1 45%; }
+      .bento { grid-template-columns: 1fr; }
+      .bento .card { grid-column: span 1 !important; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
     }
-    /* ── Particle canvas ── */
-    #particles {
-      position: fixed; inset: 0; z-index: 0;
-      pointer-events: none;
-    }
+
+    #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
   </style>
 </head>
 <body>
 
-  <!-- Aurora ambient background -->
-  <div class="aurora">
-    <div class="aurora-blob"></div>
-    <div class="aurora-blob"></div>
-    <div class="aurora-blob"></div>
-  </div>
-
-  <!-- Particle constellation canvas -->
+  <div class="bg-mesh"></div>
+  <div class="bg-noise"></div>
   <canvas id="particles"></canvas>
 
   <div class="wrap">
@@ -640,11 +339,9 @@
         <div class="logo-mark">tbh</div>
         <span class="logo-name">docs<span>/</span></span>
       </a>
-      <div class="nav-right">
-        <div class="nav-pill">
-          <div class="live-dot"></div>
-          v2025 · vi
-        </div>
+      <div class="nav-pill">
+        <div class="live-dot"></div>
+        v2025 · vi
       </div>
     </nav>
 
@@ -653,353 +350,142 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
         Technical Documentation
       </div>
-      <h1 class="hero-title">
-        Học kỹ thuật<br />
-        <span class="gradient-text">có hệ thống.</span>
-      </h1>
-      <p class="hero-desc">Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS đến kiến trúc Microservices, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
+      <h1>Học kỹ thuật<br /><span class="grad">có hệ thống.</span></h1>
+      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS đến kiến trúc Microservices, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
     </section>
 
-    <div class="metrics">
-      <div class="metric">
-        <span class="metric-val">171</span>
-        <span class="metric-label">Tài liệu</span>
-      </div>
-      <div class="metric">
-        <span class="metric-val">40</span>
-        <span class="metric-label">Chủ đề</span>
-      </div>
-      <div class="metric">
-        <span class="metric-val">7</span>
-        <span class="metric-label">Portals</span>
-      </div>
-      <div class="metric">
-        <span class="metric-val">VI</span>
-        <span class="metric-label">Ngôn ngữ</span>
-      </div>
+    <div class="stats">
+      <div class="stat"><span class="stat-val">171</span><span class="stat-lbl">Tài liệu</span></div>
+      <div class="stat"><span class="stat-val">40</span><span class="stat-lbl">Chủ đề</span></div>
+      <div class="stat"><span class="stat-val">7</span><span class="stat-lbl">Portals</span></div>
+      <div class="stat"><span class="stat-val">VI</span><span class="stat-lbl">Ngôn ngữ</span></div>
     </div>
 
-    <div class="section-header">
+    <div class="sec-head">
       <h2>Chọn lộ trình</h2>
-      <div class="line"></div>
-      <span class="count">07</span>
+      <div class="ln"></div>
+      <span class="cnt">07</span>
     </div>
 
-    <div class="portals">
+    <div class="bento">
 
-      <!-- AWS Learning -->
-      <a href="https://aws-learn.pages.dev" class="portal portal-aws">
-        <div class="portal-body">
-
-          <div class="portal-head">
-            <div class="portal-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
-              </svg>
-            </div>
-            <div class="portal-count-block">
-              <span class="portal-count">116</span>
-              <div class="portal-count-sub">tài liệu</div>
-            </div>
+      <!-- AWS -->
+      <a href="https://aws-learn.pages.dev" class="card c-aws">
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg></div>
+            <div class="card-num-block"><span class="card-num">116</span><div class="card-num-sub">tài liệu</div></div>
           </div>
-
-          <div class="portal-content">
-            <div class="portal-title">AWS Learning</div>
-            <div class="portal-desc">116 dịch vụ AWS được phân loại theo 21 chủ đề — từ Compute, Storage, Database đến IAM, Lambda, và AI/ML. Tất cả bằng tiếng Việt.</div>
+          <div><div class="card-title">AWS Learning</div><div class="card-desc">116 dịch vụ AWS được phân loại theo 21 chủ đề — từ Compute, Storage, Database đến IAM, Lambda, và AI/ML. Tất cả bằng tiếng Việt.</div></div>
+          <div class="card-tags"><span class="tag">Compute</span><span class="tag">Storage</span><span class="tag">Networking</span><span class="tag">Security</span><span class="tag">+17 chủ đề</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>21</strong> chủ đề</div><div class="ps"><strong>116</strong> docs</div></div>
+            <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-
-          <div class="portal-tags">
-            <span class="tag">Compute</span>
-            <span class="tag">Storage</span>
-            <span class="tag">Networking</span>
-            <span class="tag">Security</span>
-            <span class="tag">+17 chủ đề</span>
-          </div>
-
-          <div class="portal-footer">
-            <div class="portal-stats">
-              <div class="pstat"><strong>21</strong> chủ đề</div>
-              <div class="pstat"><strong>116</strong> docs</div>
-            </div>
-            <div class="cta-btn">
-              Vào học
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </div>
-          </div>
-
         </div>
       </a>
 
       <!-- Microservices -->
-      <a href="https://microservice-learn.pages.dev" class="portal portal-ms">
-        <div class="portal-body">
-
-          <div class="portal-head">
-            <div class="portal-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="2" y="3" width="6" height="6" rx="1.5"/><rect x="16" y="3" width="6" height="6" rx="1.5"/>
-                <rect x="9" y="15" width="6" height="6" rx="1.5"/>
-                <path d="M5 9v2.5a1.5 1.5 0 001.5 1.5h11A1.5 1.5 0 0019 11.5V9"/><path d="M12 13v2"/>
-              </svg>
-            </div>
-            <div class="portal-count-block">
-              <span class="portal-count">27</span>
-              <div class="portal-count-sub">tài liệu</div>
-            </div>
+      <a href="https://microservice-learn.pages.dev" class="card c-ms">
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="6" height="6" rx="1.5"/><rect x="16" y="3" width="6" height="6" rx="1.5"/><rect x="9" y="15" width="6" height="6" rx="1.5"/><path d="M5 9v2.5a1.5 1.5 0 001.5 1.5h11A1.5 1.5 0 0019 11.5V9"/><path d="M12 13v2"/></svg></div>
+            <div class="card-num-block"><span class="card-num">27</span><div class="card-num-sub">tài liệu</div></div>
           </div>
-
-          <div class="portal-content">
-            <div class="portal-title">Microservices</div>
-            <div class="portal-desc">Kiến trúc Microservice từ nền tảng đến nâng cao — patterns, deployment strategies, observability, security, và case studies thực tế.</div>
+          <div><div class="card-title">Microservices</div><div class="card-desc">Kiến trúc Microservice từ nền tảng đến nâng cao — patterns, deployment, observability và case studies thực tế.</div></div>
+          <div class="card-tags"><span class="tag">Architecture</span><span class="tag">Patterns</span><span class="tag">Deployment</span><span class="tag">Case Studies</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>12</strong> chủ đề</div><div class="ps"><strong>27</strong> docs</div></div>
+            <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-
-          <div class="portal-tags">
-            <span class="tag">Architecture</span>
-            <span class="tag">Patterns</span>
-            <span class="tag">Deployment</span>
-            <span class="tag">Case Studies</span>
-          </div>
-
-          <div class="portal-footer">
-            <div class="portal-stats">
-              <div class="pstat"><strong>12</strong> chủ đề</div>
-              <div class="pstat"><strong>27</strong> docs</div>
-            </div>
-            <div class="cta-btn">
-              Vào học
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </div>
-          </div>
-
         </div>
       </a>
 
-      <!-- Beads Practice -->
-      <a href="https://aws-learn.pages.dev/beads/" class="portal portal-beads">
-        <div class="portal-body">
-
-          <div class="portal-head">
-            <div class="portal-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
-              </svg>
-            </div>
-            <div class="portal-count-block">
-              <span class="portal-count">Q&A</span>
-              <div class="portal-count-sub">practice</div>
-            </div>
+      <!-- Beads -->
+      <a href="https://aws-learn.pages.dev/beads/" class="card c-beads">
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div>
+            <div class="card-num-block"><span class="card-num">Q&A</span><div class="card-num-sub">practice</div></div>
           </div>
-
-          <div class="portal-content">
-            <div class="portal-title">Beads Practice</div>
-            <div class="portal-desc">Luyện tập câu hỏi AWS theo dạng trắc nghiệm và tự luận — track tiến độ, review sai, ôn luyện theo chủ đề.</div>
+          <div><div class="card-title">Beads Practice</div><div class="card-desc">Luyện tập câu hỏi AWS — trắc nghiệm, tự luận, track tiến độ.</div></div>
+          <div class="card-tags"><span class="tag">Quiz</span><span class="tag">Flashcards</span><span class="tag">Review</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>AWS</strong> focused</div><div class="ps"><strong>Interactive</strong></div></div>
+            <div class="cta">Luyện tập <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-
-          <div class="portal-tags">
-            <span class="tag">Quiz</span>
-            <span class="tag">Flashcards</span>
-            <span class="tag">Review</span>
-            <span class="tag">Progress</span>
-          </div>
-
-          <div class="portal-footer">
-            <div class="portal-stats">
-              <div class="pstat"><strong>AWS</strong> focused</div>
-              <div class="pstat"><strong>Interactive</strong></div>
-            </div>
-            <div class="cta-btn">
-              Luyện tập
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </div>
-          </div>
-
         </div>
       </a>
 
       <!-- Multi-Tenant -->
-      <a href="https://multi-tenant-8ax.pages.dev" class="portal portal-mt">
-        <div class="portal-body">
-
-          <div class="portal-head">
-            <div class="portal-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
-              </svg>
-            </div>
-            <div class="portal-count-block">
-              <span class="portal-count">MT</span>
-              <div class="portal-count-sub">architecture</div>
-            </div>
+      <a href="https://multi-tenant-8ax.pages.dev" class="card c-mt">
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+            <div class="card-num-block"><span class="card-num">MT</span><div class="card-num-sub">architecture</div></div>
           </div>
-
-          <div class="portal-content">
-            <div class="portal-title">Multi-Tenant</div>
-            <div class="portal-desc">Kiến trúc Multi-Tenant từ cơ bản đến nâng cao — isolation strategies, data partitioning, billing, và triển khai thực tế trên cloud.</div>
+          <div><div class="card-title">Multi-Tenant</div><div class="card-desc">Isolation strategies, data partitioning, billing và triển khai trên cloud.</div></div>
+          <div class="card-tags"><span class="tag">Isolation</span><span class="tag">SaaS</span><span class="tag">Partitioning</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>Multi</strong> tenancy</div><div class="ps"><strong>SaaS</strong> patterns</div></div>
+            <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-
-          <div class="portal-tags">
-            <span class="tag">Isolation</span>
-            <span class="tag">SaaS</span>
-            <span class="tag">Partitioning</span>
-            <span class="tag">Cloud</span>
-          </div>
-
-          <div class="portal-footer">
-            <div class="portal-stats">
-              <div class="pstat"><strong>Multi</strong> tenancy</div>
-              <div class="pstat"><strong>SaaS</strong> patterns</div>
-            </div>
-            <div class="cta-btn">
-              Vào học
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </div>
-          </div>
-
         </div>
       </a>
 
-      <!-- SQL Learning -->
-      <a href="https://sql-by4.pages.dev" class="portal portal-sql">
-        <div class="portal-body">
-
-          <div class="portal-head">
-            <div class="portal-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <ellipse cx="12" cy="5" rx="9" ry="3"/>
-                <path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/>
-                <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
-              </svg>
-            </div>
-            <div class="portal-count-block">
-              <span class="portal-count">SQL</span>
-              <div class="portal-count-sub">database</div>
-            </div>
+      <!-- SQL -->
+      <a href="https://sql-by4.pages.dev" class="card c-sql">
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg></div>
+            <div class="card-num-block"><span class="card-num">SQL</span><div class="card-num-sub">database</div></div>
           </div>
-
-          <div class="portal-content">
-            <div class="portal-title">SQL Learning</div>
-            <div class="portal-desc">Nền tảng SQL từ cơ bản đến nâng cao — ACID, Transaction, Isolation Levels, Lock, MVCC, và so sánh MySQL, PostgreSQL, Oracle.</div>
+          <div><div class="card-title">SQL Learning</div><div class="card-desc">ACID, Transaction, Isolation Levels, Lock, MVCC — MySQL, PostgreSQL, Oracle.</div></div>
+          <div class="card-tags"><span class="tag">SQL</span><span class="tag">Transaction</span><span class="tag">MySQL</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>6</strong> chủ đề</div><div class="ps"><strong>SQL</strong> deep-dive</div></div>
+            <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-
-          <div class="portal-tags">
-            <span class="tag">SQL</span>
-            <span class="tag">Transaction</span>
-            <span class="tag">MySQL</span>
-            <span class="tag">PostgreSQL</span>
-          </div>
-
-          <div class="portal-footer">
-            <div class="portal-stats">
-              <div class="pstat"><strong>6</strong> chủ đề</div>
-              <div class="pstat"><strong>SQL</strong> deep-dive</div>
-            </div>
-            <div class="cta-btn">
-              Vào học
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </div>
-          </div>
-
         </div>
       </a>
 
-      <!-- Kafka Learn -->
-      <a href="https://kafka-learn.pages.dev" class="portal portal-kafka">
-        <div class="portal-body">
-
-          <div class="portal-head">
-            <div class="portal-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <path d="M2 10h20"/>
-                <path d="M10 10v8"/>
-                <path d="M16 10v4"/>
-                <path d="M6 18h12"/>
-              </svg>
-            </div>
-            <div class="portal-count-block">
-              <span class="portal-count">28</span>
-              <div class="portal-count-sub">tài liệu</div>
-            </div>
+      <!-- Kafka -->
+      <a href="https://kafka-learn.pages.dev" class="card c-kafka">
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M2 10h20"/><path d="M10 10v8"/><path d="M16 10v4"/><path d="M6 18h12"/></svg></div>
+            <div class="card-num-block"><span class="card-num">28</span><div class="card-num-sub">tài liệu</div></div>
           </div>
-
-          <div class="portal-content">
-            <div class="portal-title">Kafka Learn</div>
-            <div class="portal-desc">Apache Kafka từ cơ bản đến nâng cao — core concepts, producers & consumers, streams, connect, operations, và Spring Boot integration.</div>
+          <div><div class="card-title">Kafka Learn</div><div class="card-desc">Apache Kafka từ cơ bản đến nâng cao — core concepts, producers & consumers, streams, connect và Spring Boot integration.</div></div>
+          <div class="card-tags"><span class="tag">Core Concepts</span><span class="tag">Streams</span><span class="tag">Connect</span><span class="tag">Spring Boot</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>7</strong> chủ đề</div><div class="ps"><strong>28</strong> docs</div></div>
+            <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-
-          <div class="portal-tags">
-            <span class="tag">Core Concepts</span>
-            <span class="tag">Streams</span>
-            <span class="tag">Connect</span>
-            <span class="tag">Spring Boot</span>
-          </div>
-
-          <div class="portal-footer">
-            <div class="portal-stats">
-              <div class="pstat"><strong>7</strong> chủ đề</div>
-              <div class="pstat"><strong>28</strong> docs</div>
-            </div>
-            <div class="cta-btn">
-              Vào học
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </div>
-          </div>
-
         </div>
       </a>
 
-      <!-- System Design Practice -->
-      <a href="https://system-design-practice.pages.dev" class="portal portal-sd">
-        <div class="portal-body">
-
-          <div class="portal-head">
-            <div class="portal-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M2 20h20"/>
-                <path d="M5 20V8l4-4 3 4 4-5 5 7v10"/>
-                <circle cx="9" cy="12" r="2"/>
-                <circle cx="16" cy="10" r="2"/>
-              </svg>
-            </div>
-            <div class="portal-count-block">
-              <span class="portal-count">SD</span>
-              <div class="portal-count-sub">practice</div>
-            </div>
+      <!-- System Design -->
+      <a href="https://system-design-practice.pages.dev" class="card c-sd">
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20"/><path d="M5 20V8l4-4 3 4 4-5 5 7v10"/><circle cx="9" cy="12" r="2"/><circle cx="16" cy="10" r="2"/></svg></div>
+            <div class="card-num-block"><span class="card-num">SD</span><div class="card-num-sub">practice</div></div>
           </div>
-
-          <div class="portal-content">
-            <div class="portal-title">System Design Practice</div>
-            <div class="portal-desc">Luyện tập System Design — từ phân tích yêu cầu, vẽ diagram, đến thiết kế hệ thống phân tán. Thực hành với các bài toán thực tế.</div>
+          <div><div class="card-title">System Design Practice</div><div class="card-desc">Luyện tập System Design — phân tích yêu cầu, vẽ diagram, thiết kế hệ thống phân tán với bài toán thực tế.</div></div>
+          <div class="card-tags"><span class="tag">Scalability</span><span class="tag">Diagrams</span><span class="tag">Distributed</span><span class="tag">Real-world</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>System</strong> design</div><div class="ps"><strong>Practice</strong></div></div>
+            <div class="cta">Luyện tập <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-
-          <div class="portal-tags">
-            <span class="tag">Scalability</span>
-            <span class="tag">Diagrams</span>
-            <span class="tag">Distributed</span>
-            <span class="tag">Real-world</span>
-          </div>
-
-          <div class="portal-footer">
-            <div class="portal-stats">
-              <div class="pstat"><strong>System</strong> design</div>
-              <div class="pstat"><strong>Practice</strong></div>
-            </div>
-            <div class="cta-btn">
-              Luyện tập
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </div>
-          </div>
-
         </div>
       </a>
 
     </div>
 
     <footer>
-      <span class="footer-brand">tbh · docs — tài liệu kỹ thuật tiếng Việt</span>
-      <a href="https://github.com/vanhiep99w" class="footer-link">
+      <span class="foot-brand">tbh · docs — tài liệu kỹ thuật tiếng Việt</span>
+      <a href="https://github.com/vanhiep99w" class="foot-link">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
         github.com/vanhiep99w
       </a>
@@ -1009,140 +495,39 @@
 
   <script>
   (function() {
-    // Respect reduced motion preference
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let w, h, particles, mouse = { x: -9999, y: -9999 };
-
-    const COLORS = [
-      'rgba(255,255,255,',  // white star
-      'rgba(255,255,255,',  // white star (weighted)
-      'rgba(167,139,250,',  // violet
-      'rgba(56,189,248,',   // sky
-      'rgba(45,212,191,',   // teal
-      'rgba(129,140,248,',  // indigo
-      'rgba(251,191,36,',   // amber
-      'rgba(249,115,22,',   // orange
-    ];
-    const PARTICLE_COUNT = 80;
-    const CONNECT_DIST = 110;
-    const CONNECT_DIST_SQ = CONNECT_DIST * CONNECT_DIST;
-    const MOUSE_RADIUS = 160;
-    const MOUSE_RADIUS_SQ = MOUSE_RADIUS * MOUSE_RADIUS;
-
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
+    const c = document.getElementById('particles'), ctx = c.getContext('2d');
+    let w, h, pts, mouse = { x: -9999, y: -9999 };
+    const COLS = ['rgba(255,255,255,','rgba(167,139,250,','rgba(56,189,248,','rgba(45,212,191,','rgba(129,140,248,'];
+    const N = 60, CD = 100, CD2 = CD*CD, MR = 150, MR2 = MR*MR;
+    function resize() { w = c.width = innerWidth; h = c.height = innerHeight; }
+    function mkP() {
+      const col = COLS[Math.random()*COLS.length|0];
+      return { x: Math.random()*w, y: Math.random()*h, vx:(Math.random()-.5)*.25, vy:(Math.random()-.5)*.25,
+        r: Math.random()*1.4+.3, color: col, alpha: Math.random()*.5+.2, pulse: Math.random()*Math.PI*2, ps: Math.random()*.008+.004 };
     }
-
-    function createParticle() {
-      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-      return {
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        r: Math.random() * 1.6 + 0.3,
-        color: color,
-        alpha: Math.random() * 0.55 + 0.25,
-        pulse: Math.random() * Math.PI * 2,
-        pulseSpeed: Math.random() * 0.01 + 0.005,
-      };
-    }
-
-    function init() {
-      resize();
-      particles = [];
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push(createParticle());
+    function init() { resize(); pts=[]; for(let i=0;i<N;i++) pts.push(mkP()); }
+    function loop() {
+      ctx.clearRect(0,0,w,h);
+      for(let i=0;i<pts.length;i++) {
+        const p=pts[i]; p.pulse+=p.ps;
+        const a=p.alpha+Math.sin(p.pulse)*.08;
+        const dx=p.x-mouse.x, dy=p.y-mouse.y, d2=dx*dx+dy*dy;
+        if(d2<MR2&&d2>0){const d=Math.sqrt(d2),f=(MR-d)/MR*.6;p.vx+=(dx/d)*f*.12;p.vy+=(dy/d)*f*.12;}
+        p.vx*=.996;p.vy*=.996;p.x+=p.vx;p.y+=p.vy;
+        if(p.x<-20)p.x=w+20;if(p.x>w+20)p.x=-20;if(p.y<-20)p.y=h+20;if(p.y>h+20)p.y=-20;
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.color+Math.max(0,a).toFixed(2)+')';ctx.fill();
+        for(let j=i+1;j<pts.length;j++){const q=pts[j],cx=p.x-q.x,cy=p.y-q.y,c2=cx*cx+cy*cy;
+          if(c2<CD2){const la=(1-Math.sqrt(c2)/CD)*.1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=p.color+la.toFixed(3)+')';ctx.lineWidth=.4;ctx.stroke();}}
       }
+      requestAnimationFrame(loop);
     }
-
-    function animate() {
-      ctx.clearRect(0, 0, w, h);
-
-      // Update & draw particles
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-
-        // Pulse alpha
-        p.pulse += p.pulseSpeed;
-        const currentAlpha = p.alpha + Math.sin(p.pulse) * 0.1;
-
-        // Mouse repulsion
-        const dx = p.x - mouse.x;
-        const dy = p.y - mouse.y;
-        const distSq = dx * dx + dy * dy;
-        if (distSq < MOUSE_RADIUS_SQ && distSq > 0) {
-          const dist = Math.sqrt(distSq);
-          const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * 0.8;
-          p.vx += (dx / dist) * force * 0.15;
-          p.vy += (dy / dist) * force * 0.15;
-        }
-
-        // Damping
-        p.vx *= 0.995;
-        p.vy *= 0.995;
-
-        // Move
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Wrap edges
-        if (p.x < -20) p.x = w + 20;
-        if (p.x > w + 20) p.x = -20;
-        if (p.y < -20) p.y = h + 20;
-        if (p.y > h + 20) p.y = -20;
-
-        // Draw particle with glow
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.color + Math.max(0, currentAlpha).toFixed(2) + ')';
-        ctx.fill();
-
-        // Draw connections
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const cdx = p.x - p2.x;
-          const cdy = p.y - p2.y;
-          const cdistSq = cdx * cdx + cdy * cdy;
-
-          if (cdistSq < CONNECT_DIST_SQ) {
-            const lineAlpha = (1 - Math.sqrt(cdistSq) / CONNECT_DIST) * 0.12;
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = p.color + lineAlpha.toFixed(3) + ')';
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-
-      requestAnimationFrame(animate);
-    }
-
-    // Track mouse
-    document.addEventListener('mousemove', function(e) {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    });
-    document.addEventListener('mouseleave', function() {
-      mouse.x = -9999;
-      mouse.y = -9999;
-    });
-
-    window.addEventListener('resize', function() {
-      resize();
-    });
-
-    init();
-    animate();
+    document.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+    document.addEventListener('mouseleave',()=>{mouse.x=-9999;mouse.y=-9999;});
+    addEventListener('resize',resize);
+    init(); loop();
   })();
   </script>
 
 </body>
 </html>
-
