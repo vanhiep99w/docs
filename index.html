@@ -689,12 +689,15 @@
       { y: 0.11, speed: 1.0, puffs: genCloud(707, 0.7) },
     ];
 
-    function drawClouds(p, time) {
+    let cloudDrift = 0;
+    function drawClouds(p, time, dt) {
       if (p < 0.13 || p > 0.87) return;
       const vis = Math.sin((p - 0.13) / 0.74 * Math.PI);
       const baseAlpha = vis * 0.22;
       if (baseAlpha < 0.005) return;
-      const drift = time * 18;
+      const windBoost = (currentWeather === 'wind') ? 1 + weatherIntensity * 0.8 : 1;
+      cloudDrift += 18 * windBoost * dt;
+      const drift = cloudDrift;
       for (let i = 0; i < CLOUDS.length; i++) {
         const cl = CLOUDS[i];
         const ox = ((i * W * 0.28 + drift * cl.speed) % (W + 500)) - 250;
@@ -752,14 +755,43 @@
 
     // Wind streaks
     const windStreaks = [];
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 90; i++) {
       windStreaks.push({
         x: Math.random(), y: Math.random(),
-        len: 30 + Math.random() * 80,
-        speed: 0.7 + Math.random() * 0.8,
-        alpha: 0.03 + Math.random() * 0.07,
-        width: 0.3 + Math.random() * 0.5,
-        curve: (Math.random() - 0.5) * 0.02
+        len: 60 + Math.random() * 140,
+        speed: 0.4 + Math.random() * 0.5,
+        alpha: 0.06 + Math.random() * 0.12,
+        width: 0.5 + Math.random() * 1.0,
+        curve: (Math.random() - 0.5) * 0.015
+      });
+    }
+    // Wind dust particles
+    const windDust = [];
+    for (let i = 0; i < 80; i++) {
+      windDust.push({
+        x: Math.random(), y: Math.random(),
+        r: 0.5 + Math.random() * 1.5,
+        speed: 0.25 + Math.random() * 0.4,
+        drift: (Math.random() - 0.5) * 0.02,
+        alpha: 0.15 + Math.random() * 0.25
+      });
+    }
+
+    // Wind leaves
+    const LEAF_COLORS = ['rgba(120,160,60,','rgba(90,140,50,','rgba(180,140,40,','rgba(200,120,30,','rgba(160,80,30,'];
+    const windLeaves = [];
+    for (let i = 0; i < 18; i++) {
+      windLeaves.push({
+        x: Math.random(), y: Math.random(),
+        speed: 0.15 + Math.random() * 0.25,
+        wobble: Math.random() * Math.PI * 2,
+        wobbleSpeed: 1.5 + Math.random() * 2,
+        wobbleAmp: 0.02 + Math.random() * 0.03,
+        rot: Math.random() * Math.PI * 2,
+        rotSpeed: 1.5 + Math.random() * 3,
+        size: 3 + Math.random() * 4,
+        color: LEAF_COLORS[Math.floor(Math.random() * LEAF_COLORS.length)],
+        alpha: 0.4 + Math.random() * 0.4
       });
     }
 
@@ -839,6 +871,7 @@
 
     function drawWind(dt, intensity) {
       if (intensity < 0.01) return;
+      // Streaks
       for (const s of windStreaks) {
         s.x += s.speed * dt;
         s.y += s.curve * dt;
@@ -847,9 +880,11 @@
         const px = s.x * W, py = s.y * H;
         const ex = px + s.len, ey = py + s.curve * s.len * 8;
         const g = cx.createLinearGradient(px, py, ex, ey);
+        const a = s.alpha * intensity;
         g.addColorStop(0, 'rgba(255,255,255,0)');
-        g.addColorStop(0.3, 'rgba(220,230,250,' + (s.alpha * intensity).toFixed(4) + ')');
-        g.addColorStop(0.7, 'rgba(220,230,250,' + (s.alpha * intensity * 0.6).toFixed(4) + ')');
+        g.addColorStop(0.2, 'rgba(220,230,250,' + (a * 0.5).toFixed(4) + ')');
+        g.addColorStop(0.5, 'rgba(220,230,250,' + a.toFixed(4) + ')');
+        g.addColorStop(0.8, 'rgba(220,230,250,' + (a * 0.5).toFixed(4) + ')');
         g.addColorStop(1, 'rgba(255,255,255,0)');
         cx.beginPath();
         cx.moveTo(px, py);
@@ -857,6 +892,46 @@
         cx.strokeStyle = g;
         cx.lineWidth = s.width;
         cx.stroke();
+      }
+      // Dust particles blown by wind
+      for (const d of windDust) {
+        d.x += d.speed * dt;
+        d.y += d.drift * dt;
+        if (d.x > 1.1) { d.x = -0.05; d.y = Math.random(); }
+        if (d.y > 1.05 || d.y < -0.05) d.y = Math.random();
+        const px = d.x * W, py = d.y * H;
+        cx.beginPath(); cx.arc(px, py, d.r, 0, Math.PI * 2);
+        cx.fillStyle = 'rgba(200,210,230,' + (d.alpha * intensity).toFixed(3) + ')';
+        cx.fill();
+      }
+      // Leaves
+      for (const l of windLeaves) {
+        l.x += l.speed * dt;
+        l.wobble += l.wobbleSpeed * dt;
+        l.y += Math.sin(l.wobble) * l.wobbleAmp * dt;
+        l.rot += l.rotSpeed * dt;
+        if (l.x > 1.1) { l.x = -0.05; l.y = 0.2 + Math.random() * 0.6; }
+        const px = l.x * W, py = l.y * H;
+        cx.save();
+        cx.translate(px, py);
+        cx.rotate(l.rot);
+        cx.globalAlpha = l.alpha * intensity;
+        // Leaf shape
+        cx.beginPath();
+        cx.moveTo(0, -l.size);
+        cx.quadraticCurveTo(l.size * 0.8, -l.size * 0.3, 0, l.size);
+        cx.quadraticCurveTo(-l.size * 0.8, -l.size * 0.3, 0, -l.size);
+        cx.fillStyle = l.color + (l.alpha * intensity).toFixed(3) + ')';
+        cx.fill();
+        // Leaf vein
+        cx.beginPath();
+        cx.moveTo(0, -l.size * 0.8);
+        cx.lineTo(0, l.size * 0.8);
+        cx.strokeStyle = 'rgba(60,80,30,' + (0.3 * intensity).toFixed(3) + ')';
+        cx.lineWidth = 0.5;
+        cx.stroke();
+        cx.globalAlpha = 1;
+        cx.restore();
       }
     }
 
@@ -1025,7 +1100,7 @@
       }
 
       // Clouds
-      drawClouds(p, now);
+      drawClouds(p, now, dt);
 
       // Weather effects
       drawWeather(dt, elapsed);
