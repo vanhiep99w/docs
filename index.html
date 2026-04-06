@@ -38,6 +38,7 @@
       background: var(--bg); color: var(--text);
       min-height: 100vh; overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      transition: color .8s ease, background .8s ease;
     }
 
     /* ── Mesh gradient background ── */
@@ -324,10 +325,12 @@
     }
 
     #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    #sky-cycle { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
   </style>
 </head>
 <body>
 
+  <canvas id="sky-cycle"></canvas>
   <div class="bg-mesh"></div>
   <div class="bg-noise"></div>
   <canvas id="particles"></canvas>
@@ -354,12 +357,6 @@
       <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS đến kiến trúc Microservices, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
     </section>
 
-    <div class="stats">
-      <div class="stat"><span class="stat-val">171</span><span class="stat-lbl">Tài liệu</span></div>
-      <div class="stat"><span class="stat-val">40</span><span class="stat-lbl">Chủ đề</span></div>
-      <div class="stat"><span class="stat-val">7</span><span class="stat-lbl">Portals</span></div>
-      <div class="stat"><span class="stat-val">VI</span><span class="stat-lbl">Ngôn ngữ</span></div>
-    </div>
 
     <div class="sec-head">
       <h2>Chọn lộ trình</h2>
@@ -494,6 +491,7 @@
   </div>
 
   <script>
+  // ── Particle system ──
   (function() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const c = document.getElementById('particles'), ctx = c.getContext('2d');
@@ -526,6 +524,306 @@
     document.addEventListener('mouseleave',()=>{mouse.x=-9999;mouse.y=-9999;});
     addEventListener('resize',resize);
     init(); loop();
+  })();
+
+  // ── Day/Night Sky Cycle ──
+  (function() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const cv = document.getElementById('sky-cycle'), cx = cv.getContext('2d');
+    let W, H;
+    const CYCLE = 60; // seconds per full day
+    const stars = [];
+    for (let i = 0; i < 120; i++) stars.push({ x: Math.random(), y: Math.random() * 0.6, r: Math.random() * 1.5 + 0.3, tw: Math.random() * Math.PI * 2, sp: Math.random() * 2 + 1 });
+
+    function resize() { W = cv.width = innerWidth; H = cv.height = innerHeight; }
+    addEventListener('resize', resize); resize();
+
+    // Color palettes for sky phases
+    const SKY = {
+      night:   { top: [6,6,18],    mid: [10,10,30],    bot: [8,8,22] },
+      dawn:    { top: [25,20,60],   mid: [180,90,60],   bot: [255,140,50] },
+      morning: { top: [40,100,200], mid: [100,170,240], bot: [180,210,250] },
+      noon:    { top: [30,120,230], mid: [80,170,250],  bot: [150,210,255] },
+      evening: { top: [40,100,200], mid: [100,170,240], bot: [180,210,250] },
+      dusk:    { top: [40,20,80],   mid: [200,80,50],   bot: [255,120,30] },
+    };
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function lerpC(c1, c2, t) { return [lerp(c1[0],c2[0],t), lerp(c1[1],c2[1],t), lerp(c1[2],c2[2],t)]; }
+    function rgb(c) { return 'rgb('+Math.round(c[0])+','+Math.round(c[1])+','+Math.round(c[2])+')'; }
+
+    function getSkyColors(p) { // p = 0..1 through the day
+      const phases = [
+        { at: 0,    s: SKY.night },
+        { at: 0.15, s: SKY.dawn },
+        { at: 0.25, s: SKY.morning },
+        { at: 0.45, s: SKY.noon },
+        { at: 0.65, s: SKY.evening },
+        { at: 0.8,  s: SKY.dusk },
+        { at: 0.9,  s: SKY.night },
+        { at: 1,    s: SKY.night },
+      ];
+      for (let i = 0; i < phases.length - 1; i++) {
+        if (p >= phases[i].at && p <= phases[i+1].at) {
+          const t = (p - phases[i].at) / (phases[i+1].at - phases[i].at);
+          const sm = t * t * (3 - 2 * t); // smoothstep
+          return {
+            top: lerpC(phases[i].s.top, phases[i+1].s.top, sm),
+            mid: lerpC(phases[i].s.mid, phases[i+1].s.mid, sm),
+            bot: lerpC(phases[i].s.bot, phases[i+1].s.bot, sm),
+          };
+        }
+      }
+      return SKY.night;
+    }
+
+    function getCelestialPos(progress, startP, endP) {
+      // Arc from left to right, peaking at top center
+      const t = (progress - startP) / (endP - startP);
+      const x = t * W;
+      const peakY = H * 0.08;
+      const baseY = H * 0.55;
+      const y = baseY - Math.sin(t * Math.PI) * (baseY - peakY);
+      return { x, y, t };
+    }
+
+    function drawSun(x, y, p) {
+      const isDawn = p < 0.25, isDusk = p > 0.7;
+      const warmth = (isDawn || isDusk) ? 1 : 0;
+      const r1 = lerp(255, 255, warmth), g1 = lerp(220, 150, warmth), b1 = lerp(50, 30, warmth);
+      // Outer glow (large halo)
+      const grd = cx.createRadialGradient(x, y, 12, x, y, 200);
+      grd.addColorStop(0, 'rgba('+r1+','+g1+','+b1+',0.45)');
+      grd.addColorStop(0.2, 'rgba('+r1+','+g1+','+b1+',0.15)');
+      grd.addColorStop(0.5, 'rgba('+r1+','+g1+','+b1+',0.04)');
+      grd.addColorStop(1, 'rgba('+r1+','+g1+','+b1+',0)');
+      cx.fillStyle = grd;
+      cx.fillRect(x-200, y-200, 400, 400);
+      // Inner glow
+      const grd2 = cx.createRadialGradient(x, y, 0, x, y, 46);
+      grd2.addColorStop(0, 'rgba(255,255,240,1)');
+      grd2.addColorStop(0.4, 'rgba('+r1+','+g1+','+b1+',0.95)');
+      grd2.addColorStop(1, 'rgba('+r1+','+g1+','+b1+',0)');
+      cx.fillStyle = grd2;
+      cx.beginPath(); cx.arc(x, y, 46, 0, Math.PI*2); cx.fill();
+      // Core
+      cx.fillStyle = '#fffbe8';
+      cx.beginPath(); cx.arc(x, y, 22, 0, Math.PI*2); cx.fill();
+      // Bright center
+      cx.fillStyle = '#fff';
+      cx.beginPath(); cx.arc(x, y, 12, 0, Math.PI*2); cx.fill();
+    }
+
+    function drawMoon(x, y, time) {
+      // Outer glow (large halo)
+      const grd = cx.createRadialGradient(x, y, 8, x, y, 140);
+      grd.addColorStop(0, 'rgba(200,215,255,0.3)');
+      grd.addColorStop(0.3, 'rgba(170,190,240,0.08)');
+      grd.addColorStop(1, 'rgba(100,120,180,0)');
+      cx.fillStyle = grd;
+      cx.fillRect(x-140, y-140, 280, 280);
+      // Moon body
+      cx.fillStyle = '#e8ecf4';
+      cx.beginPath(); cx.arc(x, y, 26, 0, Math.PI*2); cx.fill();
+      // Subtle surface gradient
+      const mg = cx.createRadialGradient(x-6, y-6, 0, x, y, 26);
+      mg.addColorStop(0, 'rgba(245,248,255,0.4)');
+      mg.addColorStop(1, 'rgba(200,210,230,0)');
+      cx.fillStyle = mg;
+      cx.beginPath(); cx.arc(x, y, 26, 0, Math.PI*2); cx.fill();
+      // Crescent shadow
+      cx.fillStyle = 'rgba(20,20,50,0.75)';
+      cx.beginPath(); cx.arc(x+10, y-3, 21, 0, Math.PI*2); cx.fill();
+      // Craters
+      cx.fillStyle = 'rgba(190,195,220,0.4)';
+      cx.beginPath(); cx.arc(x-7, y-6, 3.5, 0, Math.PI*2); cx.fill();
+      cx.beginPath(); cx.arc(x-12, y+7, 2.5, 0, Math.PI*2); cx.fill();
+      cx.beginPath(); cx.arc(x-3, y+9, 1.8, 0, Math.PI*2); cx.fill();
+      cx.beginPath(); cx.arc(x-9, y+1, 1.5, 0, Math.PI*2); cx.fill();
+    }
+
+    function drawStars(opacity, time) {
+      if (opacity <= 0.01) return;
+      for (const s of stars) {
+        const tw = (Math.sin(time * s.sp + s.tw) + 1) / 2;
+        const a = opacity * (0.4 + tw * 0.6);
+        cx.fillStyle = 'rgba(220,225,255,' + a.toFixed(3) + ')';
+        cx.beginPath(); cx.arc(s.x * W, s.y * H, s.r, 0, Math.PI*2); cx.fill();
+      }
+    }
+
+    // Procedural cloud generation — soft radial-gradient puffs
+    function seedRand(s) { return function() { s=(s*16807)%2147483647; return(s-1)/2147483646; }; }
+    function genCloud(seed, scale) {
+      const r = seedRand(seed);
+      const puffs = [];
+      const count = Math.floor(18 + r() * 16); // 18-34 puffs per cloud
+      const w = scale * (120 + r() * 80);   // cloud width
+      const h = scale * (28 + r() * 14);    // cloud height
+      // Core puffs — big, centered
+      for (let i = 0; i < Math.floor(count * 0.35); i++) {
+        puffs.push({ dx: (r()-0.5)*w*0.5, dy: (r()-0.5)*h*0.4, rad: (20+r()*22)*scale, a: 0.7+r()*0.3 });
+      }
+      // Body puffs — medium, spread out
+      for (let i = 0; i < Math.floor(count * 0.4); i++) {
+        puffs.push({ dx: (r()-0.5)*w*0.85, dy: (r()-0.4)*h*0.7, rad: (12+r()*16)*scale, a: 0.5+r()*0.3 });
+      }
+      // Edge puffs — small, wispy
+      for (let i = 0; i < count - Math.floor(count*0.75); i++) {
+        puffs.push({ dx: (r()-0.5)*w*1.1, dy: (r()-0.3)*h*0.9, rad: (6+r()*10)*scale, a: 0.25+r()*0.25 });
+      }
+      return puffs;
+    }
+    const CLOUDS = [
+      { y: 0.09, speed: 0.8, puffs: genCloud(101, 1.2) },
+      { y: 0.17, speed: 0.5, puffs: genCloud(202, 1.4) },
+      { y: 0.24, speed: 1.1, puffs: genCloud(303, 0.9) },
+      { y: 0.13, speed: 0.65, puffs: genCloud(404, 1.3) },
+      { y: 0.21, speed: 0.9, puffs: genCloud(505, 1.0) },
+      { y: 0.28, speed: 0.45, puffs: genCloud(606, 0.8) },
+      { y: 0.11, speed: 1.0, puffs: genCloud(707, 0.7) },
+    ];
+
+    function drawClouds(p, time) {
+      if (p < 0.13 || p > 0.87) return;
+      const vis = Math.sin((p - 0.13) / 0.74 * Math.PI);
+      const baseAlpha = vis * 0.22;
+      if (baseAlpha < 0.005) return;
+      const drift = time * 18;
+      for (let i = 0; i < CLOUDS.length; i++) {
+        const cl = CLOUDS[i];
+        const ox = ((i * W * 0.28 + drift * cl.speed) % (W + 500)) - 250;
+        const oy = H * cl.y;
+        // Draw each puff as a radial gradient circle — soft & natural
+        for (const pf of cl.puffs) {
+          const px = ox + pf.dx, py = oy + pf.dy, pr = pf.rad;
+          const pa = baseAlpha * pf.a;
+          const g = cx.createRadialGradient(px, py - pr*0.15, pr*0.1, px, py, pr);
+          g.addColorStop(0, 'rgba(255,255,255,' + (pa*1.1).toFixed(4) + ')');
+          g.addColorStop(0.4, 'rgba(255,255,255,' + (pa*0.7).toFixed(4) + ')');
+          g.addColorStop(0.75, 'rgba(240,245,255,' + (pa*0.25).toFixed(4) + ')');
+          g.addColorStop(1, 'rgba(220,230,250,0)');
+          cx.fillStyle = g;
+          cx.beginPath(); cx.arc(px, py, pr, 0, Math.PI*2); cx.fill();
+        }
+      }
+    }
+
+    const startTime = performance.now() / 1000;
+    // Theme color phases: night → dawn → day → dusk → night
+    const THEMES = [
+      { at: 0,    text: [230,230,245], sec: [190,195,220], muted: [150,155,180], card: [17,17,28,0.72], cardH: [22,22,36,0.85], border: [255,255,255,0.06], borderH: [255,255,255,0.14], surface: [14,14,22], overlay: 0.58, gradA: [167,139,250], gradB: [129,140,248], gradC: [56,189,248], gradD: [45,212,191] },
+      { at: 0.15, text: [255,235,210], sec: [240,210,180], muted: [210,180,150], card: [80,40,20,0.5],   cardH: [90,50,25,0.6],   border: [255,200,140,0.15],borderH: [255,200,140,0.25],surface: [80,40,20],    overlay: 0.35, gradA: [255,180,80],  gradB: [255,140,90],  gradC: [255,200,100],gradD: [255,220,140] },
+      { at: 0.25, text: [240,245,255], sec: [200,210,240], muted: [160,170,200], card: [20,50,100,0.45], cardH: [30,60,110,0.55], border: [255,255,255,0.08],borderH: [255,255,255,0.16],surface: [20,50,100],   overlay: 0.32, gradA: [120,160,255], gradB: [80,150,255],  gradC: [50,180,255], gradD: [40,200,220] },
+      { at: 0.45, text: [245,248,255], sec: [210,218,240], muted: [170,180,210], card: [15,45,95,0.5],   cardH: [25,55,105,0.6],  border: [255,255,255,0.08],borderH: [255,255,255,0.15],surface: [15,45,95],    overlay: 0.3,  gradA: [100,150,255], gradB: [70,140,255],  gradC: [40,170,255], gradD: [30,190,210] },
+      { at: 0.65, text: [240,245,255], sec: [200,210,240], muted: [160,170,200], card: [20,50,100,0.45], cardH: [30,60,110,0.55], border: [255,255,255,0.08],borderH: [255,255,255,0.16],surface: [20,50,100],   overlay: 0.32, gradA: [120,160,255], gradB: [80,150,255],  gradC: [50,180,255], gradD: [40,200,220] },
+      { at: 0.8,  text: [255,225,200], sec: [235,195,165], muted: [200,160,130], card: [60,20,10,0.55],  cardH: [80,30,15,0.65],  border: [255,180,100,0.12],borderH: [255,180,100,0.22],surface: [60,25,15],    overlay: 0.3,  gradA: [255,140,60],  gradB: [255,100,70],  gradC: [255,180,80], gradD: [255,200,120] },
+      { at: 0.9,  text: [230,230,245], sec: [190,195,220], muted: [150,155,180], card: [17,17,28,0.72], cardH: [22,22,36,0.85], border: [255,255,255,0.06], borderH: [255,255,255,0.14], surface: [14,14,22], overlay: 0.58, gradA: [167,139,250], gradB: [129,140,248], gradC: [56,189,248], gradD: [45,212,191] },
+      { at: 1,    text: [230,230,245], sec: [190,195,220], muted: [150,155,180], card: [17,17,28,0.72], cardH: [22,22,36,0.85], border: [255,255,255,0.06], borderH: [255,255,255,0.14], surface: [14,14,22], overlay: 0.58, gradA: [167,139,250], gradB: [129,140,248], gradC: [56,189,248], gradD: [45,212,191] },
+    ];
+
+    function getTheme(p) {
+      for (let i = 0; i < THEMES.length - 1; i++) {
+        if (p >= THEMES[i].at && p <= THEMES[i+1].at) {
+          const t = (p - THEMES[i].at) / (THEMES[i+1].at - THEMES[i].at);
+          const sm = t * t * (3 - 2 * t);
+          const a = THEMES[i], b = THEMES[i+1];
+          const m = (k) => a[k].map((v,j) => lerp(v, b[k][j], sm));
+          return { text: m('text'), sec: m('sec'), muted: m('muted'), card: m('card'), cardH: m('cardH'), border: m('border'), borderH: m('borderH'), surface: m('surface'), overlay: lerp(a.overlay, b.overlay, sm), gradA: m('gradA'), gradB: m('gradB'), gradC: m('gradC'), gradD: m('gradD') };
+        }
+      }
+      return THEMES[0];
+    }
+
+    let lastThemeUpdate = 0;
+    function updateTheme(p, now) {
+      if (now - lastThemeUpdate < 0.1) return; // throttle to ~10fps for DOM updates
+      lastThemeUpdate = now;
+      const th = getTheme(p);
+      const r = document.documentElement.style;
+      const c3 = (v) => Math.round(v[0])+','+Math.round(v[1])+','+Math.round(v[2]);
+      r.setProperty('--text', 'rgb('+c3(th.text)+')');
+      r.setProperty('--text-sec', 'rgba('+c3(th.sec)+',0.75)');
+      r.setProperty('--muted', 'rgba('+c3(th.muted)+',0.6)');
+      r.setProperty('--card', 'rgba('+c3(th.card)+','+(th.card[3]||0.65).toFixed(3)+')');
+      r.setProperty('--card-h', 'rgba('+c3(th.cardH)+','+(th.cardH[3]||0.8).toFixed(3)+')');
+      r.setProperty('--border', 'rgba('+c3(th.border)+','+(th.border[3]||0.055).toFixed(4)+')');
+      r.setProperty('--border-h', 'rgba('+c3(th.borderH)+','+(th.borderH[3]||0.12).toFixed(3)+')');
+      r.setProperty('--surface', 'rgb('+c3(th.surface)+')');
+    }
+
+    function getOverlay(p) {
+      const th = getTheme(p);
+      return th.overlay;
+    }
+
+    function frame() {
+      const now = performance.now() / 1000;
+      const elapsed = now - startTime;
+      const p = (elapsed % CYCLE) / CYCLE; // 0..1
+
+      cx.clearRect(0, 0, W, H);
+
+      // Sky gradient
+      const sky = getSkyColors(p);
+      const grad = cx.createLinearGradient(0, 0, 0, H);
+      grad.addColorStop(0, rgb(sky.top));
+      grad.addColorStop(0.45, rgb(sky.mid));
+      grad.addColorStop(1, rgb(sky.bot));
+      cx.fillStyle = grad;
+      cx.fillRect(0, 0, W, H);
+
+      // Dynamic overlay — lighter during day, darker at night
+      const ov = getOverlay(p);
+      cx.fillStyle = 'rgba(6,6,11,' + ov.toFixed(3) + ')';
+      cx.fillRect(0, 0, W, H);
+
+      // Update UI theme colors
+      updateTheme(p, now);
+
+      // Stars (visible at night)
+      const nightness = p < 0.12 ? 1 : p < 0.2 ? 1 - (p-0.12)/0.08 : p > 0.85 ? (p-0.85)/0.15 : 0;
+      drawStars(nightness, now);
+
+      // Sun (visible ~0.15 to 0.85)
+      if (p > 0.12 && p < 0.88) {
+        const sunPos = getCelestialPos(p, 0.12, 0.88);
+        const sunAlpha = p < 0.18 ? (p-0.12)/0.06 : p > 0.82 ? (0.88-p)/0.06 : 1;
+        cx.globalAlpha = Math.min(1, sunAlpha);
+        drawSun(sunPos.x, sunPos.y, p);
+        cx.globalAlpha = 1;
+      }
+
+      // Moon (visible during night ~0.88 to 1.0 + 0.0 to 0.12)
+      const moonP = p > 0.88 ? (p - 0.88) / 0.24 : p < 0.12 ? (p + 0.12) / 0.24 : -1;
+      if (moonP >= 0 && moonP <= 1) {
+        const mx = moonP * W;
+        const peakY = H * 0.1;
+        const baseY = H * 0.55;
+        const my = baseY - Math.sin(moonP * Math.PI) * (baseY - peakY);
+        const moonAlpha = moonP < 0.1 ? moonP/0.1 : moonP > 0.9 ? (1-moonP)/0.1 : 1;
+        cx.globalAlpha = Math.min(1, moonAlpha);
+        drawMoon(mx, my, now);
+        cx.globalAlpha = 1;
+      }
+
+      // Clouds
+      drawClouds(p, now);
+
+      // Horizon glow during dawn/dusk
+      if ((p > 0.12 && p < 0.3) || (p > 0.7 && p < 0.9)) {
+        const ht = p < 0.3 ? Math.sin((p-0.12)/0.18*Math.PI) : Math.sin((p-0.7)/0.2*Math.PI);
+        const hg = cx.createRadialGradient(W*0.5, H*0.65, 0, W*0.5, H*0.65, W*0.5);
+        const hue = p < 0.3 ? '255,160,50' : '255,100,30';
+        hg.addColorStop(0, 'rgba('+hue+','+(ht*0.12).toFixed(3)+')');
+        hg.addColorStop(1, 'rgba('+hue+',0)');
+        cx.fillStyle = hg;
+        cx.fillRect(0, 0, W, H);
+      }
+
+      requestAnimationFrame(frame);
+    }
+    frame();
   })();
   </script>
 
