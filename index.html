@@ -175,6 +175,7 @@
     .bento .card:nth-child(5) { grid-column: span 4; }
     .bento .card:nth-child(6) { grid-column: span 6; }
     .bento .card:nth-child(7) { grid-column: span 6; }
+    .bento .card:nth-child(8) { grid-column: span 12; }
 
     /* ── Cards ── */
     .card {
@@ -208,6 +209,7 @@
     .c-sql   { --ac: 59,130,246;  --ac2: 168,85,247; }
     .c-kafka { --ac: 231,76,60;   --ac2: 52,152,219; }
     .c-sd    { --ac: 16,185,129;  --ac2: 132,204,22; }
+    .c-iq    { --ac: 245,101,101; --ac2: 251,146,60; }
 
     .card::before {
       background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(var(--ac),.08), transparent 70%);
@@ -458,6 +460,22 @@
           <div class="card-foot">
             <div class="card-stats"><div class="ps"><strong>7</strong> chủ đề</div><div class="ps"><strong>28</strong> docs</div></div>
             <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Interview Questions -->
+      <a href="https://interview-question.pages.dev" class="card c-iq">
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M12 8v4"/><circle cx="12" cy="15" r=".5" fill="currentColor"/></svg></div>
+            <div class="card-num-block"><span class="card-num">IQ</span><div class="card-num-sub">interview</div></div>
+          </div>
+          <div><div class="card-title">Interview Questions</div><div class="card-desc">Bộ câu hỏi phỏng vấn kỹ thuật — Backend, System Design, Database, Cloud. Ôn luyện có hệ thống theo từng chủ đề.</div></div>
+          <div class="card-tags"><span class="tag">Backend</span><span class="tag">System Design</span><span class="tag">Database</span><span class="tag">Cloud</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>Interview</strong> prep</div><div class="ps"><strong>Q&A</strong> format</div></div>
+            <div class="cta">Luyện tập <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
         </div>
       </a>
