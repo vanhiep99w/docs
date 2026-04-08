@@ -164,9 +164,9 @@
     .bento {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-      padding-bottom: 64px;
-      opacity: 0; animation: fadeUp .6s .3s forwards;
+      gap: 16px;
+      padding-bottom: 80px;
+      perspective: 1200px;
     }
     .bento .card:nth-child(1) { grid-column: span 7; }
     .bento .card:nth-child(2) { grid-column: span 5; }
@@ -179,70 +179,142 @@
 
     /* ── Cards ── */
     .card {
+      --mouse-x: 50%; --mouse-y: 50%;
       position: relative; overflow: hidden;
       text-decoration: none; color: var(--text);
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      backdrop-filter: blur(16px);
       display: flex; flex-direction: column;
-      transition: border-color .35s, transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s;
+      will-change: transform;
+      transition: border-color .4s, transform .5s cubic-bezier(.03,.98,.52,.99), box-shadow .5s;
+      opacity: 0; animation: cardReveal .7s forwards;
+      animation-delay: calc(var(--i, 0) * .08s + .3s);
     }
+    .bento .card:nth-child(1) { --i: 1; }
+    .bento .card:nth-child(2) { --i: 2; }
+    .bento .card:nth-child(3) { --i: 3; }
+    .bento .card:nth-child(4) { --i: 4; }
+    .bento .card:nth-child(5) { --i: 5; }
+    .bento .card:nth-child(6) { --i: 6; }
+    .bento .card:nth-child(7) { --i: 7; }
+    .bento .card:nth-child(8) { --i: 8; }
+
+    @keyframes cardReveal {
+      from { opacity: 0; transform: translateY(30px) rotateX(6deg) scale(.97); }
+      to   { opacity: 1; transform: translateY(0) rotateX(0) scale(1); }
+    }
+
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 24px 64px rgba(0,0,0,.45);
-      border-color: var(--border-h);
+      transform: translateY(-6px) scale(1.012);
+      box-shadow:
+        0 20px 40px rgba(0,0,0,.35),
+        0 0 80px -20px rgba(var(--ac),.2);
+      border-color: rgba(var(--ac),.2);
     }
+
+    /* Mouse-tracking spotlight */
     .card::before {
       content: ''; position: absolute; inset: 0;
       border-radius: var(--radius);
-      opacity: 0; transition: opacity .4s;
-      pointer-events: none;
+      background: radial-gradient(
+        600px circle at var(--mouse-x) var(--mouse-y),
+        rgba(var(--ac),.12), transparent 40%
+      );
+      opacity: 0; transition: opacity .5s ease;
+      pointer-events: none; z-index: 1;
     }
     .card:hover::before { opacity: 1; }
 
     /* Card accent colors */
-    .c-aws   { --ac: 167,139,250; --ac2: 56,189,248; }
-    .c-ms    { --ac: 45,212,191;  --ac2: 129,140,248; }
-    .c-beads { --ac: 251,191,36;  --ac2: 251,113,133; }
-    .c-mt    { --ac: 249,115,22;  --ac2: 232,121,249; }
-    .c-sql   { --ac: 59,130,246;  --ac2: 168,85,247; }
-    .c-kafka { --ac: 231,76,60;   --ac2: 52,152,219; }
-    .c-sd    { --ac: 16,185,129;  --ac2: 132,204,22; }
-    .c-iq    { --ac: 245,101,101; --ac2: 251,146,60; }
+    .c-aws   { --ac: 167,139,250; --ac2: 56,189,248; --ac-hex: #a78bfa; --ac2-hex: #38bdf8; }
+    .c-ms    { --ac: 45,212,191;  --ac2: 129,140,248; --ac-hex: #2dd4bf; --ac2-hex: #818cf8; }
+    .c-beads { --ac: 251,191,36;  --ac2: 251,113,133; --ac-hex: #fbbf24; --ac2-hex: #fb7185; }
+    .c-mt    { --ac: 249,115,22;  --ac2: 232,121,249; --ac-hex: #f97316; --ac2-hex: #e879f9; }
+    .c-sql   { --ac: 59,130,246;  --ac2: 168,85,247;  --ac-hex: #3b82f6; --ac2-hex: #a855f7; }
+    .c-kafka { --ac: 231,76,60;   --ac2: 52,152,219;  --ac-hex: #e74c3c; --ac2-hex: #3498db; }
+    .c-sd    { --ac: 16,185,129;  --ac2: 132,204,22;  --ac-hex: #10b981; --ac2-hex: #84cc16; }
+    .c-iq    { --ac: 245,101,101; --ac2: 251,146,60;  --ac-hex: #f56565; --ac2-hex: #fb923c; }
 
-    .card::before {
-      background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(var(--ac),.08), transparent 70%);
-    }
+    /* Gradient border on hover */
     .card::after {
       content: ''; position: absolute; inset: -1px;
       border-radius: var(--radius); padding: 1px;
-      background: linear-gradient(135deg, rgba(var(--ac),.35), rgba(var(--ac2),.15), transparent 55%);
+      background: linear-gradient(
+        135deg,
+        rgba(var(--ac),.45) 0%, rgba(var(--ac2),.25) 30%,
+        transparent 50%,
+        rgba(var(--ac2),.25) 70%, rgba(var(--ac),.45) 100%
+      );
+      background-size: 200% 200%;
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor; mask-composite: exclude;
-      opacity: 0; transition: opacity .4s; pointer-events: none; z-index: 1;
+      opacity: 0; transition: opacity .5s; pointer-events: none; z-index: 2;
     }
-    .card:hover::after { opacity: 1; }
+    .card:hover::after {
+      opacity: 1;
+      animation: shimmerBorder 3s ease infinite;
+    }
 
-    .card-body { position: relative; z-index: 2; padding: 28px; display: flex; flex-direction: column; gap: 20px; flex: 1; }
+    @keyframes shimmerBorder {
+      0%   { background-position: 0% 0%; }
+      50%  { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
 
-    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    /* Inner floating orb accents */
+    .card-glow {
+      position: absolute; border-radius: 50%; pointer-events: none; filter: blur(24px);
+      z-index: 0; opacity: 0; transition: opacity .5s, transform .5s;
+    }
+    .card-glow-1 {
+      width: 160px; height: 160px; top: -50px; right: -30px;
+      background: rgb(var(--ac));
+    }
+    .card-glow-2 {
+      width: 100px; height: 100px; bottom: -20px; left: -10px;
+      background: rgb(var(--ac2));
+    }
+    .card:hover .card-glow { opacity: .15; }
+    .card:hover .card-glow-1 { transform: scale(1.1) translate(-5px, 5px); }
+    .card:hover .card-glow-2 { transform: scale(1.1) translate(5px, -5px); }
+
+
+    .card-body { position: relative; z-index: 3; padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 18px; flex: 1; }
+
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
     .card-icon {
-      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+      width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      background: rgba(var(--ac),.08); color: rgb(var(--ac));
-      border: 1px solid rgba(var(--ac),.1);
-      transition: transform .3s, box-shadow .3s;
+      background: linear-gradient(135deg, rgba(var(--ac),.12), rgba(var(--ac2),.06));
+      color: rgb(var(--ac));
+      border: 1px solid rgba(var(--ac),.12);
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s, background .4s;
+      position: relative;
     }
-    .card:hover .card-icon { transform: scale(1.06) rotate(-2deg); box-shadow: 0 0 20px rgba(var(--ac),.15); }
-    .card-icon svg { width: 20px; height: 20px; }
+    .card-icon::after {
+      content: ''; position: absolute; inset: -3px; border-radius: 16px;
+      background: linear-gradient(135deg, rgba(var(--ac),.2), rgba(var(--ac2),.1));
+      opacity: 0; transition: opacity .4s; z-index: -1;
+    }
+    .card:hover .card-icon {
+      transform: scale(1.1) rotate(-4deg);
+      box-shadow: 0 0 24px rgba(var(--ac),.2), 0 4px 12px rgba(var(--ac),.15);
+      background: linear-gradient(135deg, rgba(var(--ac),.18), rgba(var(--ac2),.1));
+    }
+    .card:hover .card-icon::after { opacity: 1; }
+    .card-icon svg { width: 22px; height: 22px; }
 
-    .card-num-block { text-align: right; }
+    .card-num-block { text-align: right; position: relative; }
     .card-num {
       font-family: 'Outfit', sans-serif; font-weight: 800;
-      font-size: 2.6rem; line-height: 1; letter-spacing: -.03em;
+      font-size: 2.8rem; line-height: 1; letter-spacing: -.035em;
       background: linear-gradient(135deg, rgb(var(--ac)), rgb(var(--ac2)));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      transition: transform .4s;
+    }
+    .card:hover .card-num {
+      transform: scale(1.04);
     }
     .card-num-sub {
       font-family: 'JetBrains Mono', monospace; font-size: .5rem;
@@ -251,43 +323,69 @@
 
     .card-title {
       font-family: 'Outfit', sans-serif; font-weight: 700;
-      font-size: 1.25rem; letter-spacing: -.015em; margin-bottom: 6px;
+      font-size: 1.25rem; letter-spacing: -.015em; margin-bottom: 4px;
+      transition: color .3s;
     }
-    .card-desc { font-size: .82rem; line-height: 1.75; color: var(--text-sec); }
+    .card:hover .card-title { color: rgb(var(--ac)); }
+    .card-desc {
+      font-size: .82rem; line-height: 1.75; color: var(--text-sec);
+      transition: color .3s;
+    }
 
-    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .tag {
       font-family: 'JetBrains Mono', monospace; font-size: .55rem; font-weight: 500;
       letter-spacing: .05em; text-transform: uppercase;
-      padding: 3px 9px; border-radius: 5px;
+      padding: 4px 10px; border-radius: 6px;
       background: rgba(255,255,255,.035); color: var(--text-sec);
       border: 1px solid var(--border);
-      transition: background .2s, border-color .2s;
+      transition: background .3s, border-color .3s, color .3s, transform .3s;
     }
-    .card:hover .tag { background: rgba(255,255,255,.06); border-color: var(--border-h); }
+    .card:hover .tag {
+      background: rgba(var(--ac),.06); border-color: rgba(var(--ac),.15);
+      color: rgb(var(--ac));
+    }
+    .card:hover .tag:hover {
+      transform: translateY(-1px);
+      background: rgba(var(--ac),.12);
+    }
 
     .card-foot {
       display: flex; align-items: center; justify-content: space-between;
       padding-top: 16px; border-top: 1px solid var(--border); margin-top: auto;
+      transition: border-color .4s;
     }
+    .card:hover .card-foot { border-color: rgba(var(--ac),.12); }
     .card-stats { display: flex; gap: 14px; }
     .ps { font-family: 'JetBrains Mono', monospace; font-size: .55rem; color: var(--muted); }
-    .ps strong { color: var(--text-sec); }
+    .ps strong { color: var(--text-sec); transition: color .3s; }
+    .card:hover .ps strong { color: rgb(var(--ac)); }
 
     .cta {
       font-family: 'Outfit', sans-serif; font-size: .7rem; font-weight: 600;
       letter-spacing: .02em;
       display: inline-flex; align-items: center; gap: 7px;
-      padding: 7px 14px; border-radius: 9px; border: none;
+      padding: 8px 16px; border-radius: 10px; border: none;
       color: #06060b;
       background: linear-gradient(135deg, rgb(var(--ac)), rgb(var(--ac2)));
-      box-shadow: 0 2px 10px rgba(var(--ac),.2);
-      transition: box-shadow .25s, transform .25s;
+      box-shadow: 0 2px 12px rgba(var(--ac),.2), inset 0 1px 0 rgba(255,255,255,.15);
+      transition: box-shadow .3s, transform .3s;
+      position: relative; overflow: hidden;
     }
-    .card:hover .cta { box-shadow: 0 4px 18px rgba(var(--ac),.3); transform: translateY(-1px); }
+    .cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+      transform: translateX(-100%);
+      transition: transform .6s;
+    }
+    .card:hover .cta::before { transform: translateX(100%); }
+    .card:hover .cta {
+      box-shadow: 0 6px 24px rgba(var(--ac),.35), inset 0 1px 0 rgba(255,255,255,.2);
+      transform: translateY(-2px);
+    }
     .c-kafka .cta, .c-sql .cta { color: #fff; }
-    .cta svg { width: 11px; height: 11px; transition: transform .25s; }
-    .card:hover .cta svg { transform: translateX(3px); }
+    .cta svg { width: 11px; height: 11px; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+    .card:hover .cta svg { transform: translateX(4px); }
 
     /* ── Footer ── */
     footer {
@@ -363,13 +461,16 @@
     <div class="sec-head">
       <h2>Chọn lộ trình</h2>
       <div class="ln"></div>
-      <span class="cnt">07</span>
+      <span class="cnt">08</span>
     </div>
 
-    <div class="bento">
+    <div class="bento" id="bento-grid">
 
       <!-- AWS -->
       <a href="https://aws-learn.pages.dev" class="card c-aws">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
         <div class="card-body">
           <div class="card-top">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg></div>
@@ -386,6 +487,9 @@
 
       <!-- AWS Questions -->
       <a href="https://aws-learn.pages.dev/practice/" class="card c-aws">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
         <div class="card-body">
           <div class="card-top">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div>
@@ -402,6 +506,9 @@
 
       <!-- Microservices -->
       <a href="https://microservice-learn.pages.dev" class="card c-ms">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
         <div class="card-body">
           <div class="card-top">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="6" height="6" rx="1.5"/><rect x="16" y="3" width="6" height="6" rx="1.5"/><rect x="9" y="15" width="6" height="6" rx="1.5"/><path d="M5 9v2.5a1.5 1.5 0 001.5 1.5h11A1.5 1.5 0 0019 11.5V9"/><path d="M12 13v2"/></svg></div>
@@ -418,6 +525,9 @@
 
       <!-- Multi-Tenant -->
       <a href="https://multi-tenant-8ax.pages.dev" class="card c-mt">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
         <div class="card-body">
           <div class="card-top">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
@@ -434,6 +544,9 @@
 
       <!-- SQL -->
       <a href="https://sql-by4.pages.dev" class="card c-sql">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
         <div class="card-body">
           <div class="card-top">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg></div>
@@ -450,6 +563,9 @@
 
       <!-- Kafka -->
       <a href="https://kafka-learn.pages.dev" class="card c-kafka">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
         <div class="card-body">
           <div class="card-top">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M2 10h20"/><path d="M10 10v8"/><path d="M16 10v4"/><path d="M6 18h12"/></svg></div>
@@ -466,6 +582,9 @@
 
       <!-- Interview Questions -->
       <a href="https://interview-question.pages.dev" class="card c-iq">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
         <div class="card-body">
           <div class="card-top">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M12 8v4"/><circle cx="12" cy="15" r=".5" fill="currentColor"/></svg></div>
@@ -482,6 +601,9 @@
 
       <!-- System Design -->
       <a href="https://system-design-practice.pages.dev" class="card c-sd">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
         <div class="card-body">
           <div class="card-top">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20h20"/><path d="M5 20V8l4-4 3 4 4-5 5 7v10"/><circle cx="9" cy="12" r="2"/><circle cx="16" cy="10" r="2"/></svg></div>
@@ -509,6 +631,21 @@
   </div>
 
   <script>
+  // ── Card mouse-tracking spotlight ──
+  (function() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', x + 'px');
+        card.style.setProperty('--mouse-y', y + 'px');
+      });
+    });
+  })();
+
   // ── Particle system ──
   (function() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -759,15 +896,15 @@
 
     // Snowflakes
     const snowFlakes = [];
-    for (let i = 0; i < 120; i++) {
+    for (let i = 0; i < 170; i++) {
       snowFlakes.push({
         x: Math.random(), y: Math.random(),
-        r: 1 + Math.random() * 3,
-        speed: 0.08 + Math.random() * 0.12,
+        r: 2 + Math.random() * 3.5,
+        speed: 0.05 + Math.random() * 0.1,
         wobble: Math.random() * Math.PI * 2,
         wobbleSpeed: 0.3 + Math.random() * 0.7,
-        wobbleAmp: 0.0003 + Math.random() * 0.001,
-        alpha: 0.3 + Math.random() * 0.5
+        wobbleAmp: 0.0004 + Math.random() * 0.0012,
+        alpha: 0.5 + Math.random() * 0.5
       });
     }
 
