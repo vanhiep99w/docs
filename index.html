@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>tbh · docs — Tài liệu kỹ thuật tiếng Việt</title>
-  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Microservices, Kafka, SQL, System Design và Multi-Tenant Architecture." />
+  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Microservices, Kafka, SQL, Java Memory Model, System Design và Multi-Tenant Architecture." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23a78bfa'/><stop offset='100%25' stop-color='%2338bdf8'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='%23111118'/><text x='16' y='22' text-anchor='middle' font-family='monospace' font-weight='700' font-size='13' fill='url(%23g)'>tb</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -175,7 +175,8 @@
     .bento .card:nth-child(5) { grid-column: span 4; }
     .bento .card:nth-child(6) { grid-column: span 6; }
     .bento .card:nth-child(7) { grid-column: span 6; }
-    .bento .card:nth-child(8) { grid-column: span 12; }
+    .bento .card:nth-child(8) { grid-column: span 6; }
+    .bento .card:nth-child(9) { grid-column: span 6; }
 
     /* ── Cards ── */
     .card {
@@ -199,6 +200,7 @@
     .bento .card:nth-child(6) { --i: 6; }
     .bento .card:nth-child(7) { --i: 7; }
     .bento .card:nth-child(8) { --i: 8; }
+    .bento .card:nth-child(9) { --i: 9; }
 
     @keyframes cardReveal {
       from { opacity: 0; transform: translateY(30px) rotateX(6deg) scale(.97); }
@@ -233,6 +235,7 @@
     .c-mt    { --ac: 249,115,22;  --ac2: 232,121,249; --ac-hex: #f97316; --ac2-hex: #e879f9; }
     .c-sql   { --ac: 59,130,246;  --ac2: 168,85,247;  --ac-hex: #3b82f6; --ac2-hex: #a855f7; }
     .c-kafka { --ac: 231,76,60;   --ac2: 52,152,219;  --ac-hex: #e74c3c; --ac2-hex: #3498db; }
+    .c-jmm   { --ac: 52,211,153;  --ac2: 163,230,53;  --ac-hex: #34d399; --ac2-hex: #a3e635; }
     .c-sd    { --ac: 16,185,129;  --ac2: 132,204,22;  --ac-hex: #10b981; --ac2-hex: #84cc16; }
     .c-iq    { --ac: 245,101,101; --ac2: 251,146,60;  --ac-hex: #f56565; --ac2-hex: #fb923c; }
 
@@ -454,14 +457,14 @@
         Technical Documentation
       </div>
       <h1>Học kỹ thuật<br /><span class="grad">có hệ thống.</span></h1>
-      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS đến kiến trúc Microservices, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
+      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS, kiến trúc Microservices, Kafka, SQL đến Java concurrency, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
     </section>
 
 
     <div class="sec-head">
       <h2>Chọn lộ trình</h2>
       <div class="ln"></div>
-      <span class="cnt">08</span>
+      <span class="cnt">09</span>
     </div>
 
     <div class="bento" id="bento-grid">
@@ -614,6 +617,25 @@
           <div class="card-foot">
             <div class="card-stats"><div class="ps"><strong>System</strong> design</div><div class="ps"><strong>Practice</strong></div></div>
             <div class="cta">Luyện tập <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <!-- JMM -->
+      <a href="https://jmm-ahk.pages.dev" class="card c-jmm">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/><path d="M8 12h8M12 8v8"/></svg></div>
+            <div class="card-num-block"><span class="card-num">16</span><div class="card-num-sub">tài liệu</div></div>
+          </div>
+          <div><div class="card-title">JMM Learning</div><div class="card-desc">Java Memory Model bằng tiếng Việt — visibility, ordering, happens-before, volatile, synchronized, atomic/CAS và pitfalls khi code đa luồng.</div></div>
+          <div class="card-tags"><span class="tag">Happens-Before</span><span class="tag">Volatile</span><span class="tag">Synchronized</span><span class="tag">CAS</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>1</strong> chủ đề</div><div class="ps"><strong>16</strong> docs</div></div>
+            <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
         </div>
       </a>
