@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>tbh · docs — Tài liệu kỹ thuật tiếng Việt</title>
-  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Microservices, Kafka, SQL, Java Memory Model, System Design và Multi-Tenant Architecture." />
+  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Microservices, Kafka, SQL, React, Java Memory Model, System Design và Multi-Tenant Architecture." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23a78bfa'/><stop offset='100%25' stop-color='%2338bdf8'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='%23111118'/><text x='16' y='22' text-anchor='middle' font-family='monospace' font-weight='700' font-size='13' fill='url(%23g)'>tb</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -175,8 +175,9 @@
     .bento .card:nth-child(5) { grid-column: span 4; }
     .bento .card:nth-child(6) { grid-column: span 6; }
     .bento .card:nth-child(7) { grid-column: span 6; }
-    .bento .card:nth-child(8) { grid-column: span 6; }
-    .bento .card:nth-child(9) { grid-column: span 6; }
+    .bento .card:nth-child(8) { grid-column: span 4; }
+    .bento .card:nth-child(9) { grid-column: span 4; }
+    .bento .card:nth-child(10) { grid-column: span 4; }
 
     /* ── Cards ── */
     .card {
@@ -201,6 +202,7 @@
     .bento .card:nth-child(7) { --i: 7; }
     .bento .card:nth-child(8) { --i: 8; }
     .bento .card:nth-child(9) { --i: 9; }
+    .bento .card:nth-child(10) { --i: 10; }
 
     @keyframes cardReveal {
       from { opacity: 0; transform: translateY(30px) rotateX(6deg) scale(.97); }
@@ -238,6 +240,7 @@
     .c-jmm   { --ac: 52,211,153;  --ac2: 163,230,53;  --ac-hex: #34d399; --ac2-hex: #a3e635; }
     .c-sd    { --ac: 16,185,129;  --ac2: 132,204,22;  --ac-hex: #10b981; --ac2-hex: #84cc16; }
     .c-iq    { --ac: 245,101,101; --ac2: 251,146,60;  --ac-hex: #f56565; --ac2-hex: #fb923c; }
+    .c-react { --ac: 97,218,251;  --ac2: 59,130,246;  --ac-hex: #61dafb; --ac2-hex: #3b82f6; }
 
     /* Gradient border on hover */
     .card::after {
@@ -457,14 +460,14 @@
         Technical Documentation
       </div>
       <h1>Học kỹ thuật<br /><span class="grad">có hệ thống.</span></h1>
-      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS, kiến trúc Microservices, Kafka, SQL đến Java concurrency, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
+      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS, kiến trúc Microservices, Kafka, SQL, React đến Java concurrency, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
     </section>
 
 
     <div class="sec-head">
       <h2>Chọn lộ trình</h2>
       <div class="ln"></div>
-      <span class="cnt">09</span>
+      <span class="cnt">10</span>
     </div>
 
     <div class="bento" id="bento-grid">
@@ -617,6 +620,25 @@
           <div class="card-foot">
             <div class="card-stats"><div class="ps"><strong>System</strong> design</div><div class="ps"><strong>Practice</strong></div></div>
             <div class="cta">Luyện tập <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <!-- React -->
+      <a href="https://react-learn-awm.pages.dev/" class="card c-react">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="12" rx="9" ry="3"/><ellipse cx="12" cy="12" rx="9" ry="3" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg></div>
+            <div class="card-num-block"><span class="card-num">01</span><div class="card-num-sub">tài liệu</div></div>
+          </div>
+          <div><div class="card-title">React Learning</div><div class="card-desc">Tài liệu học React bằng tiếng Việt — component, props/state, hooks, rendering và patterns frontend hiện đại.</div></div>
+          <div class="card-tags"><span class="tag">Components</span><span class="tag">Hooks</span><span class="tag">State</span><span class="tag">Next.js</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>React</strong> docs</div><div class="ps"><strong>Cloudflare</strong> Pages</div></div>
+            <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
         </div>
       </a>
