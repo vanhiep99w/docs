@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>tbh · docs — Tài liệu kỹ thuật tiếng Việt</title>
-  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Microservices, Kafka, SQL, React, Java, JavaScript, Java Memory Model, System Design, Multi-Tenant Architecture và Interview Questions." />
+  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Microservices, Kafka, SQL, React, Java, JavaScript, JWT, Java Memory Model, System Design, Multi-Tenant Architecture và Interview Questions." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23a78bfa'/><stop offset='100%25' stop-color='%2338bdf8'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='%23111118'/><text x='16' y='22' text-anchor='middle' font-family='monospace' font-weight='700' font-size='13' fill='url(%23g)'>tb</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -179,7 +179,8 @@
     .bento .card:nth-child(9) { grid-column: span 6; }
     .bento .card:nth-child(10) { grid-column: span 6; }
     .bento .card:nth-child(11) { grid-column: span 6; }
-    .bento .card:nth-child(12) { grid-column: span 12; }
+    .bento .card:nth-child(12) { grid-column: span 6; }
+    .bento .card:nth-child(13) { grid-column: span 6; }
 
     /* ── Cards ── */
     .card {
@@ -207,6 +208,7 @@
     .bento .card:nth-child(10) { --i: 10; }
     .bento .card:nth-child(11) { --i: 11; }
     .bento .card:nth-child(12) { --i: 12; }
+    .bento .card:nth-child(13) { --i: 13; }
 
     @keyframes cardReveal {
       from { opacity: 0; transform: translateY(30px) rotateX(6deg) scale(.97); }
@@ -247,6 +249,7 @@
     .c-react { --ac: 97,218,251;  --ac2: 59,130,246;  --ac-hex: #61dafb; --ac2-hex: #3b82f6; }
     .c-java  { --ac: 251,191,36;  --ac2: 59,130,246;  --ac-hex: #fbbf24; --ac2-hex: #3b82f6; }
     .c-js    { --ac: 247,223,30;  --ac2: 234,179,8;   --ac-hex: #f7df1e; --ac2-hex: #eab308; }
+    .c-jwt   { --ac: 236,72,153;  --ac2: 168,85,247;  --ac-hex: #ec4899; --ac2-hex: #a855f7; }
 
     /* Gradient border on hover */
     .card::after {
@@ -466,14 +469,14 @@
         Technical Documentation
       </div>
       <h1>Học kỹ thuật<br /><span class="grad">có hệ thống.</span></h1>
-      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS, kiến trúc Microservices, Kafka, SQL, React, JavaScript, Java core/concurrency đến phỏng vấn kỹ thuật, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
+      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS, kiến trúc Microservices, Kafka, SQL, React, JavaScript, Java core/concurrency, xác thực JWT đến phỏng vấn kỹ thuật, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
     </section>
 
 
     <div class="sec-head">
       <h2>Chọn lộ trình</h2>
       <div class="ln"></div>
-      <span class="cnt">12</span>
+      <span class="cnt">13</span>
     </div>
 
     <div class="bento" id="bento-grid">
@@ -701,6 +704,25 @@
           <div class="card-tags"><span class="tag">Fundamentals</span><span class="tag">Closures</span><span class="tag">Async</span><span class="tag">Prototype</span><span class="tag">TypeScript</span><span class="tag">+3 chủ đề</span></div>
           <div class="card-foot">
             <div class="card-stats"><div class="ps"><strong>8</strong> chủ đề</div><div class="ps"><strong>33</strong> docs</div></div>
+            <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <!-- JWT -->
+      <a href="https://jwt-learn.pages.dev/" class="card c-jwt">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/><rect x="9" y="11" width="6" height="5" rx="1"/><path d="M10.5 11V9.5a1.5 1.5 0 013 0V11"/></svg></div>
+            <div class="card-num-block"><span class="card-num">43</span><div class="card-num-sub">tài liệu</div></div>
+          </div>
+          <div><div class="card-title">JWT Learn</div><div class="card-desc">43 tài liệu JSON Web Token tiếng Việt — cấu trúc token, ký số (HMAC/RSA/ECDSA), token lifecycle, OAuth2/OIDC, bảo mật & best practices kèm case studies thực tế.</div></div>
+          <div class="card-tags"><span class="tag">Authentication</span><span class="tag">Cryptography</span><span class="tag">OAuth2</span><span class="tag">Security</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>8</strong> chủ đề</div><div class="ps"><strong>43</strong> docs</div></div>
             <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
         </div>
