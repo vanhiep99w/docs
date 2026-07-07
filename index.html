@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>tbh · docs — Tài liệu kỹ thuật tiếng Việt</title>
-  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Microservices, Kafka, SQL, React, Java, JavaScript, JWT, Java Memory Model, System Design, Multi-Tenant Architecture và Interview Questions." />
+  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Microservices, Kafka, SQL, React, Java, JavaScript, JWT, Redis, Java Memory Model, System Design, Multi-Tenant Architecture và Interview Questions." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23a78bfa'/><stop offset='100%25' stop-color='%2338bdf8'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='%23111118'/><text x='16' y='22' text-anchor='middle' font-family='monospace' font-weight='700' font-size='13' fill='url(%23g)'>tb</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -181,6 +181,7 @@
     .bento .card:nth-child(11) { grid-column: span 6; }
     .bento .card:nth-child(12) { grid-column: span 6; }
     .bento .card:nth-child(13) { grid-column: span 6; }
+    .bento .card:nth-child(14) { grid-column: span 6; }
 
     /* ── Cards ── */
     .card {
@@ -209,6 +210,7 @@
     .bento .card:nth-child(11) { --i: 11; }
     .bento .card:nth-child(12) { --i: 12; }
     .bento .card:nth-child(13) { --i: 13; }
+    .bento .card:nth-child(14) { --i: 14; }
 
     @keyframes cardReveal {
       from { opacity: 0; transform: translateY(30px) rotateX(6deg) scale(.97); }
@@ -250,6 +252,7 @@
     .c-java  { --ac: 251,191,36;  --ac2: 59,130,246;  --ac-hex: #fbbf24; --ac2-hex: #3b82f6; }
     .c-js    { --ac: 247,223,30;  --ac2: 234,179,8;   --ac-hex: #f7df1e; --ac2-hex: #eab308; }
     .c-jwt   { --ac: 236,72,153;  --ac2: 168,85,247;  --ac-hex: #ec4899; --ac2-hex: #a855f7; }
+    .c-redis { --ac: 220,38,38;   --ac2: 249,115,22;  --ac-hex: #dc2626; --ac2-hex: #f97316; }
 
     /* Gradient border on hover */
     .card::after {
@@ -469,14 +472,14 @@
         Technical Documentation
       </div>
       <h1>Học kỹ thuật<br /><span class="grad">có hệ thống.</span></h1>
-      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS, kiến trúc Microservices, Kafka, SQL, React, JavaScript, Java core/concurrency, xác thực JWT đến phỏng vấn kỹ thuật, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
+      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS, kiến trúc Microservices, Kafka, Redis, SQL, React, JavaScript, Java core/concurrency, xác thực JWT đến phỏng vấn kỹ thuật, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
     </section>
 
 
     <div class="sec-head">
       <h2>Chọn lộ trình</h2>
       <div class="ln"></div>
-      <span class="cnt">13</span>
+      <span class="cnt">14</span>
     </div>
 
     <div class="bento" id="bento-grid">
@@ -590,6 +593,25 @@
           <div class="card-tags"><span class="tag">Core Concepts</span><span class="tag">Streams</span><span class="tag">Connect</span><span class="tag">Spring Boot</span></div>
           <div class="card-foot">
             <div class="card-stats"><div class="ps"><strong>7</strong> chủ đề</div><div class="ps"><strong>27</strong> docs</div></div>
+            <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Redis -->
+      <a href="https://redis-learn.pages.dev/" class="card c-redis">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3L3 7.5l9 4.5 9-4.5L12 3z"/><path d="M3 12l9 4.5 9-4.5"/><path d="M3 16.5l9 4.5 9-4.5"/><path d="M7.5 9.75L12 12l4.5-2.25"/></svg></div>
+            <div class="card-num-block"><span class="card-num">NEW</span><div class="card-num-sub">learning</div></div>
+          </div>
+          <div><div class="card-title">Redis Learning</div><div class="card-desc">Lộ trình học Redis đã deploy — data structures, caching patterns, persistence, replication, cluster, pub/sub, streams và tối ưu hiệu năng cho backend.</div></div>
+          <div class="card-tags"><span class="tag">Caching</span><span class="tag">Data Structures</span><span class="tag">Pub/Sub</span><span class="tag">Cluster</span><span class="tag">Performance</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>Redis</strong> core</div><div class="ps"><strong>Live</strong> site</div></div>
             <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
         </div>
