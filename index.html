@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>tbh · docs — Tài liệu kỹ thuật tiếng Việt</title>
-  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Microservices, Kafka, SQL, React, Java, JavaScript, JWT, Redis, Java Memory Model, System Design, Multi-Tenant Architecture và Interview Questions." />
+  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Kubernetes, Microservices, Kafka, SQL, React, Java, JavaScript, JWT, Redis, Java Memory Model, System Design, Multi-Tenant Architecture và Interview Questions." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23a78bfa'/><stop offset='100%25' stop-color='%2338bdf8'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='%23111118'/><text x='16' y='22' text-anchor='middle' font-family='monospace' font-weight='700' font-size='13' fill='url(%23g)'>tb</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -182,6 +182,7 @@
     .bento .card:nth-child(12) { grid-column: span 6; }
     .bento .card:nth-child(13) { grid-column: span 6; }
     .bento .card:nth-child(14) { grid-column: span 6; }
+    .bento .card:nth-child(15) { grid-column: span 6; }
 
     /* ── Cards ── */
     .card {
@@ -211,6 +212,7 @@
     .bento .card:nth-child(12) { --i: 12; }
     .bento .card:nth-child(13) { --i: 13; }
     .bento .card:nth-child(14) { --i: 14; }
+    .bento .card:nth-child(15) { --i: 15; }
 
     @keyframes cardReveal {
       from { opacity: 0; transform: translateY(30px) rotateX(6deg) scale(.97); }
@@ -253,6 +255,7 @@
     .c-js    { --ac: 247,223,30;  --ac2: 234,179,8;   --ac-hex: #f7df1e; --ac2-hex: #eab308; }
     .c-jwt   { --ac: 236,72,153;  --ac2: 168,85,247;  --ac-hex: #ec4899; --ac2-hex: #a855f7; }
     .c-redis { --ac: 220,38,38;   --ac2: 249,115,22;  --ac-hex: #dc2626; --ac2-hex: #f97316; }
+    .c-k8s   { --ac: 50,108,229;  --ac2: 56,189,248;  --ac-hex: #326ce5; --ac2-hex: #38bdf8; }
 
     /* Gradient border on hover */
     .card::after {
@@ -401,7 +404,7 @@
       box-shadow: 0 6px 24px rgba(var(--ac),.35), inset 0 1px 0 rgba(255,255,255,.2);
       transform: translateY(-2px);
     }
-    .c-kafka .cta, .c-sql .cta { color: #fff; }
+    .c-kafka .cta, .c-sql .cta, .c-k8s .cta { color: #fff; }
     .cta svg { width: 11px; height: 11px; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
     .card:hover .cta svg { transform: translateX(4px); }
 
@@ -472,14 +475,14 @@
         Technical Documentation
       </div>
       <h1>Học kỹ thuật<br /><span class="grad">có hệ thống.</span></h1>
-      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS, kiến trúc Microservices, Kafka, Redis, SQL, React, JavaScript, Java core/concurrency, xác thực JWT đến phỏng vấn kỹ thuật, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
+      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS, Kubernetes, kiến trúc Microservices, Kafka, Redis, SQL, React, JavaScript, Java core/concurrency, xác thực JWT đến phỏng vấn kỹ thuật, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
     </section>
 
 
     <div class="sec-head">
       <h2>Chọn lộ trình</h2>
       <div class="ln"></div>
-      <span class="cnt">14</span>
+      <span class="cnt">15</span>
     </div>
 
     <div class="bento" id="bento-grid">
@@ -745,6 +748,25 @@
           <div class="card-tags"><span class="tag">Authentication</span><span class="tag">Cryptography</span><span class="tag">OAuth2</span><span class="tag">Security</span></div>
           <div class="card-foot">
             <div class="card-stats"><div class="ps"><strong>8</strong> chủ đề</div><div class="ps"><strong>43</strong> docs</div></div>
+            <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Kubernetes -->
+      <a href="https://k8s-learn-2tg.pages.dev/" class="card c-k8s">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.5l7.8 4.5v9L12 20.5 4.2 16V7L12 2.5z"/><circle cx="12" cy="11.5" r="2.2"/><path d="M12 5.5v3.8M12 13.7v3.8M6.8 8.5l3.3 1.9M13.9 12.6l3.3 1.9M17.2 8.5l-3.3 1.9M10.1 12.6l-3.3 1.9"/></svg></div>
+            <div class="card-num-block"><span class="card-num">181</span><div class="card-num-sub">tài liệu</div></div>
+          </div>
+          <div><div class="card-title">Kubernetes Learning</div><div class="card-desc">181 tài liệu Kubernetes tiếng Việt từ nền tảng đến production — kiến trúc cluster, workloads, networking, storage, security, observability và vận hành thực tế.</div></div>
+          <div class="card-tags"><span class="tag">Workloads</span><span class="tag">Networking</span><span class="tag">Storage</span><span class="tag">Security</span><span class="tag">Production</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>16</strong> chủ đề</div><div class="ps"><strong>181</strong> docs</div></div>
             <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
         </div>
