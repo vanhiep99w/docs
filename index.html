@@ -168,21 +168,7 @@
       padding-bottom: 80px;
       perspective: 1200px;
     }
-    .bento .card:nth-child(1) { grid-column: span 7; }
-    .bento .card:nth-child(2) { grid-column: span 5; }
-    .bento .card:nth-child(3) { grid-column: span 4; }
-    .bento .card:nth-child(4) { grid-column: span 4; }
-    .bento .card:nth-child(5) { grid-column: span 4; }
-    .bento .card:nth-child(6) { grid-column: span 6; }
-    .bento .card:nth-child(7) { grid-column: span 6; }
-    .bento .card:nth-child(8) { grid-column: span 6; }
-    .bento .card:nth-child(9) { grid-column: span 6; }
-    .bento .card:nth-child(10) { grid-column: span 6; }
-    .bento .card:nth-child(11) { grid-column: span 6; }
-    .bento .card:nth-child(12) { grid-column: span 6; }
-    .bento .card:nth-child(13) { grid-column: span 6; }
-    .bento .card:nth-child(14) { grid-column: span 6; }
-    .bento .card:nth-child(15) { grid-column: span 6; }
+    .bento .card { grid-column: span 4; }
 
     /* ── Cards ── */
     .card {
@@ -301,11 +287,11 @@
     .card:hover .card-glow-2 { transform: scale(1.1) translate(5px, -5px); }
 
 
-    .card-body { position: relative; z-index: 3; padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 18px; flex: 1; }
+    .card-body { position: relative; z-index: 3; padding: 22px 22px 20px; display: flex; flex-direction: column; gap: 13px; flex: 1; }
 
     .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
     .card-icon {
-      width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+      width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       background: linear-gradient(135deg, rgba(var(--ac),.12), rgba(var(--ac2),.06));
       color: rgb(var(--ac));
@@ -329,7 +315,7 @@
     .card-num-block { text-align: right; position: relative; }
     .card-num {
       font-family: 'Outfit', sans-serif; font-weight: 800;
-      font-size: 2.8rem; line-height: 1; letter-spacing: -.035em;
+      font-size: 2.25rem; line-height: 1; letter-spacing: -.035em;
       background: linear-gradient(135deg, rgb(var(--ac)), rgb(var(--ac2)));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       transition: transform .4s;
@@ -344,20 +330,23 @@
 
     .card-title {
       font-family: 'Outfit', sans-serif; font-weight: 700;
-      font-size: 1.25rem; letter-spacing: -.015em; margin-bottom: 4px;
+      font-size: 1.12rem; letter-spacing: -.015em; margin-bottom: 3px;
       transition: color .3s;
     }
     .card:hover .card-title { color: rgb(var(--ac)); }
     .card-desc {
-      font-size: .82rem; line-height: 1.75; color: var(--text-sec);
+      font-size: .78rem; line-height: 1.6; color: var(--text-sec);
       transition: color .3s;
+      display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;
+      overflow: hidden;
     }
 
-    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .card-tags { display: flex; flex-wrap: nowrap; gap: 5px; overflow: hidden; }
     .tag {
       font-family: 'JetBrains Mono', monospace; font-size: .55rem; font-weight: 500;
       letter-spacing: .05em; text-transform: uppercase;
-      padding: 4px 10px; border-radius: 6px;
+      padding: 3px 8px; border-radius: 6px;
+      flex: 0 0 auto;
       background: rgba(255,255,255,.035); color: var(--text-sec);
       border: 1px solid var(--border);
       transition: background .3s, border-color .3s, color .3s, transform .3s;
@@ -373,7 +362,7 @@
 
     .card-foot {
       display: flex; align-items: center; justify-content: space-between;
-      padding-top: 16px; border-top: 1px solid var(--border); margin-top: auto;
+      padding-top: 13px; border-top: 1px solid var(--border); margin-top: auto;
       transition: border-color .4s;
     }
     .card:hover .card-foot { border-color: rgba(var(--ac),.12); }
@@ -386,7 +375,7 @@
       font-family: 'Outfit', sans-serif; font-size: .7rem; font-weight: 600;
       letter-spacing: .02em;
       display: inline-flex; align-items: center; gap: 7px;
-      padding: 8px 16px; border-radius: 10px; border: none;
+      padding: 7px 13px; border-radius: 9px; border: none;
       color: #06060b;
       background: linear-gradient(135deg, rgb(var(--ac)), rgb(var(--ac2)));
       box-shadow: 0 2px 12px rgba(var(--ac),.2), inset 0 1px 0 rgba(255,255,255,.15);
@@ -431,6 +420,9 @@
     @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.3; } }
 
     /* ── Responsive ── */
+    @media (max-width: 920px) {
+      .bento .card { grid-column: span 6; }
+    }
     @media (max-width: 768px) {
       .wrap { padding: 0 18px; }
       .hero { padding: 40px 0 32px; }
