@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>tbh · docs — Tài liệu kỹ thuật tiếng Việt</title>
-  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Docker, Kubernetes, Microservices, Kafka, SQL, React, Java, JavaScript, JWT, Redis, Java Memory Model, System Design, Multi-Tenant Architecture và Interview Questions." />
+  <meta name="description" content="Tài liệu kỹ thuật tiếng Việt — AWS, Docker, Kubernetes, GitHub Actions, Jenkins, Microservices, Kafka, SQL, React, Java, JavaScript, JWT, Redis, Java Memory Model, System Design, Multi-Tenant Architecture và Interview Questions." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23a78bfa'/><stop offset='100%25' stop-color='%2338bdf8'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='%23111118'/><text x='16' y='22' text-anchor='middle' font-family='monospace' font-weight='700' font-size='13' fill='url(%23g)'>tb</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -200,6 +200,8 @@
     .bento .card:nth-child(14) { --i: 14; }
     .bento .card:nth-child(15) { --i: 15; }
     .bento .card:nth-child(16) { --i: 16; }
+    .bento .card:nth-child(17) { --i: 17; }
+    .bento .card:nth-child(18) { --i: 18; }
 
     @keyframes cardReveal {
       from { opacity: 0; transform: translateY(30px) rotateX(6deg) scale(.97); }
@@ -242,8 +244,10 @@
     .c-js    { --ac: 247,223,30;  --ac2: 234,179,8;   --ac-hex: #f7df1e; --ac2-hex: #eab308; }
     .c-jwt    { --ac: 236,72,153;  --ac2: 168,85,247;  --ac-hex: #ec4899; --ac2-hex: #a855f7; }
     .c-redis  { --ac: 220,38,38;   --ac2: 249,115,22;  --ac-hex: #dc2626; --ac2-hex: #f97316; }
-    .c-k8s    { --ac: 50,108,229;  --ac2: 56,189,248;  --ac-hex: #326ce5; --ac2-hex: #38bdf8; }
-    .c-docker { --ac: 36,150,237;  --ac2: 56,189,248;  --ac-hex: #2496ed; --ac2-hex: #38bdf8; }
+    .c-k8s     { --ac: 50,108,229;  --ac2: 56,189,248;  --ac-hex: #326ce5; --ac2-hex: #38bdf8; }
+    .c-docker  { --ac: 36,150,237;  --ac2: 56,189,248;  --ac-hex: #2496ed; --ac2-hex: #38bdf8; }
+    .c-gha     { --ac: 32,136,255;  --ac2: 129,140,248; --ac-hex: #2088ff; --ac2-hex: #818cf8; }
+    .c-jenkins { --ac: 211,56,51;   --ac2: 251,146,60;  --ac-hex: #d33833; --ac2-hex: #fb923c; }
 
     /* Gradient border on hover */
     .card::after {
@@ -395,7 +399,7 @@
       box-shadow: 0 6px 24px rgba(var(--ac),.35), inset 0 1px 0 rgba(255,255,255,.2);
       transform: translateY(-2px);
     }
-    .c-kafka .cta, .c-sql .cta, .c-k8s .cta { color: #fff; }
+    .c-kafka .cta, .c-sql .cta, .c-k8s .cta, .c-gha .cta, .c-jenkins .cta { color: #fff; }
     .cta svg { width: 11px; height: 11px; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
     .card:hover .cta svg { transform: translateX(4px); }
 
@@ -469,14 +473,14 @@
         Technical Documentation
       </div>
       <h1>Học kỹ thuật<br /><span class="grad">có hệ thống.</span></h1>
-      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS, Docker, Kubernetes, kiến trúc Microservices, Kafka, Redis, SQL, React, JavaScript, Java core/concurrency, xác thực JWT đến phỏng vấn kỹ thuật, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
+      <p>Tài liệu kỹ thuật tiếng Việt — từ hạ tầng đám mây AWS, Docker, Kubernetes, CI/CD với GitHub Actions và Jenkins, kiến trúc Microservices, Kafka, Redis, SQL, React, JavaScript, Java core/concurrency, xác thực JWT đến phỏng vấn kỹ thuật, được tổ chức theo lộ trình học từ cơ bản đến nâng cao.</p>
     </section>
 
 
     <div class="sec-head">
       <h2>Chọn lộ trình</h2>
       <div class="ln"></div>
-      <span class="cnt">16</span>
+      <span class="cnt">18</span>
     </div>
 
     <div class="bento" id="bento-grid">
@@ -780,6 +784,44 @@
           <div class="card-tags"><span class="tag">Containers</span><span class="tag">Images</span><span class="tag">Compose</span><span class="tag">Networking</span><span class="tag">Production</span></div>
           <div class="card-foot">
             <div class="card-stats"><div class="ps"><strong>Docker</strong> core</div><div class="ps"><strong>Live</strong> site</div></div>
+            <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <!-- GitHub Actions -->
+      <a href="https://github-actions-learn.pages.dev/" class="card c-gha">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2"/><circle cx="18" cy="5" r="2"/><circle cx="12" cy="19" r="2"/><path d="M6 7v3a2 2 0 002 2h8a2 2 0 002-2V7M12 12v5"/><path d="M9.5 9.5L12 12l2.5-2.5"/></svg></div>
+            <div class="card-num-block"><span class="card-num">NEW</span><div class="card-num-sub">learning</div></div>
+          </div>
+          <div><div class="card-title">GitHub Actions Learning</div><div class="card-desc">Lộ trình GitHub Actions bằng tiếng Việt — workflow, events, jobs, runners, secrets, reusable workflows và xây dựng pipeline CI/CD thực tế.</div></div>
+          <div class="card-tags"><span class="tag">Workflows</span><span class="tag">Runners</span><span class="tag">CI/CD</span><span class="tag">Security</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>GitHub</strong> Actions</div><div class="ps"><strong>Live</strong> site</div></div>
+            <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Jenkins -->
+      <a href="https://jenkins-learn.pages.dev/" class="card c-jenkins">
+        <div class="card-glow card-glow-1"></div>
+        <div class="card-glow card-glow-2"></div>
+
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0015 19.4a1.7 1.7 0 00-1 .6 1.7 1.7 0 00-.4 1.1V21h-4v-.1A1.7 1.7 0 008.6 19.4a1.7 1.7 0 00-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 004.6 15a1.7 1.7 0 00-1.6-1H3v-4h.1A1.7 1.7 0 004.6 9a1.7 1.7 0 00-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 009 4.6a1.7 1.7 0 001-1.6V3h4v.1A1.7 1.7 0 0015 4.6a1.7 1.7 0 001.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0019.4 9a1.7 1.7 0 001.6 1h.1v4H21a1.7 1.7 0 00-1.6 1z"/></svg></div>
+            <div class="card-num-block"><span class="card-num">NEW</span><div class="card-num-sub">learning</div></div>
+          </div>
+          <div><div class="card-title">Jenkins Learning</div><div class="card-desc">Lộ trình Jenkins bằng tiếng Việt — nền tảng CI/CD, cài đặt, Jenkinsfile, Pipeline, agents, plugins, bảo mật và vận hành production.</div></div>
+          <div class="card-tags"><span class="tag">Pipeline</span><span class="tag">Jenkinsfile</span><span class="tag">Agents</span><span class="tag">Plugins</span></div>
+          <div class="card-foot">
+            <div class="card-stats"><div class="ps"><strong>Jenkins</strong> CI/CD</div><div class="ps"><strong>Live</strong> site</div></div>
             <div class="cta">Vào học <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
         </div>
