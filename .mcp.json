@@ -1,0 +1,8 @@
+{
+    "mcpServers": {
+        "pencil" : {
+            "command": "/tmp/.mount_Pen-li7A6r1v/resources/app.asar.unpacked/out/mcp-server-linux-x64",
+            "args": ["--app","desktop"]
+        }
+    }
+}   

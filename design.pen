@@ -1,0 +1,3082 @@
+{
+  "version": "2.14",
+  "children": [
+    {
+      "type": "frame",
+      "id": "bi8Au",
+      "x": 0,
+      "y": 0,
+      "name": "TBH Docs — Learning Hub",
+      "clip": true,
+      "width": 1440,
+      "height": 1690,
+      "fill": "$surface-primary",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "Iq2wz",
+          "name": "Global Header",
+          "width": "fill_container",
+          "height": 72,
+          "stroke": "$border-subtle",
+          "strokeWidth": {
+            "bottom": 1
+          },
+          "padding": [
+            0,
+            72
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "jVpky",
+              "name": "Brand",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "yEZ4R",
+                  "name": "Brand Mark",
+                  "width": 32,
+                  "height": 32,
+                  "fill": "$ink",
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "krgog",
+                      "name": "Brand Initials",
+                      "fill": "#FFFFFF",
+                      "content": "t·b·h",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 10,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "RljCy",
+                  "name": "Brand Name",
+                  "fill": "$ink",
+                  "content": "tbh / docs",
+                  "fontFamily": "$font-heading",
+                  "fontSize": 17,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "WnJsz",
+              "name": "Primary Navigation",
+              "gap": 28,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "KAIVx",
+                  "name": "Nav Lộ trình",
+                  "fill": "$muted",
+                  "content": "Lộ trình",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "BvnC0",
+                  "name": "Nav Thư viện",
+                  "fill": "$muted",
+                  "content": "Thư viện",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "yjYya",
+                  "name": "Nav Luyện tập",
+                  "fill": "$muted",
+                  "content": "Luyện tập",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "frame",
+                  "id": "Vz6Q9",
+                  "name": "Quick Search",
+                  "width": 220,
+                  "height": 38,
+                  "fill": "$surface-secondary",
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "gap": 10,
+                  "padding": [
+                    0,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "j903Df",
+                      "name": "Search Icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "search",
+                      "library": "lucide",
+                      "fill": "$quiet"
+                    },
+                    {
+                      "type": "text",
+                      "id": "m4oQqq",
+                      "name": "Search Hint",
+                      "fill": "$quiet",
+                      "content": "Tìm tài liệu...",
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "UtGIi",
+                      "name": "Keyboard Shortcut",
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "padding": [
+                        3,
+                        6
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "BfFAq",
+                          "name": "Shortcut Label",
+                          "fill": "$quiet",
+                          "content": "⌘ K",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 10,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "GpjBd",
+          "name": "Hero",
+          "width": "fill_container",
+          "height": 548,
+          "fill": "#F5FAFD",
+          "stroke": "$border-subtle",
+          "strokeWidth": {
+            "bottom": 1
+          },
+          "gap": 56,
+          "padding": [
+            72,
+            72,
+            56,
+            72
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Yfmcb",
+              "name": "Hero Copy",
+              "width": 625,
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 22,
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "jb7BA",
+                  "name": "Eyebrow",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "id": "P6BLn",
+                      "name": "Status Dot",
+                      "fill": "$accent",
+                      "width": 8,
+                      "height": 8
+                    },
+                    {
+                      "type": "text",
+                      "id": "AMwiP",
+                      "name": "Eyebrow Text",
+                      "fill": "$muted",
+                      "content": "TECHNICAL DOCUMENTATION · TIẾNG VIỆT",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.8
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "urXy5",
+                  "name": "Hero Title",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "BsTaM",
+                      "name": "Title Line 1",
+                      "fill": "$ink",
+                      "content": "Học kỹ thuật",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 68,
+                      "fontWeight": "700",
+                      "letterSpacing": -3
+                    },
+                    {
+                      "type": "frame",
+                      "id": "HJJCq",
+                      "name": "Title Highlight",
+                      "fill": "$accent",
+                      "padding": [
+                        1,
+                        14
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Mhq6F",
+                          "name": "Title Line 2",
+                          "fill": "#FFFFFF",
+                          "content": "có hệ thống.",
+                          "fontFamily": "$font-heading",
+                          "fontSize": 68,
+                          "fontWeight": "700",
+                          "letterSpacing": -3
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "ksDMG",
+                  "name": "Hero Description",
+                  "fill": "#4F5B63",
+                  "textGrowth": "fixed-width",
+                  "width": 570,
+                  "content": "Một bản đồ học tập kỹ thuật bằng tiếng Việt — từ nền tảng đến production, được biên soạn theo lộ trình rõ ràng và có thể tra cứu nhanh.",
+                  "lineHeight": 1.55,
+                  "fontFamily": "$font-body",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "a5YOp",
+                  "name": "Hero Actions",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "YO2Pb",
+                      "name": "Explore Button",
+                      "height": 46,
+                      "fill": "$accent",
+                      "gap": 10,
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ZiziJ",
+                          "name": "Explore Label",
+                          "fill": "#FFFFFF",
+                          "content": "Khám phá lộ trình",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "650"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "QLccq",
+                          "name": "Explore Arrow",
+                          "width": 17,
+                          "height": 17,
+                          "icon": "arrow-right",
+                          "library": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "UVViL",
+                      "name": "Practice Button",
+                      "height": 46,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "gap": 9,
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "r0EB3d",
+                          "name": "Practice Icon",
+                          "width": 17,
+                          "height": 17,
+                          "icon": "brain-circuit",
+                          "library": "lucide",
+                          "fill": "$ink"
+                        },
+                        {
+                          "type": "text",
+                          "id": "XLyoz",
+                          "name": "Practice Label",
+                          "fill": "$ink",
+                          "content": "Luyện tập",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "GsZwe",
+                  "name": "Hero Proof Strip",
+                  "gap": 18,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ZqZnO",
+                      "name": "LỘ TRÌNH Hero Metric",
+                      "gap": 7,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "m27s4t",
+                          "name": "LỘ TRÌNH Hero Value",
+                          "fill": "$ink",
+                          "content": "18",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 12,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "YLMiC",
+                          "name": "LỘ TRÌNH Hero Label",
+                          "fill": "$quiet",
+                          "content": "LỘ TRÌNH",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 8,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.5
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Q5BHD",
+                      "name": "BÀI VIẾT Hero Metric",
+                      "gap": 7,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "hbO7D",
+                          "name": "BÀI VIẾT Hero Value",
+                          "fill": "$ink",
+                          "content": "638+",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 12,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "XLrhn",
+                          "name": "BÀI VIẾT Hero Label",
+                          "fill": "$quiet",
+                          "content": "BÀI VIẾT",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 8,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.5
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "t3XLxK",
+                      "name": "TRUY CẬP Hero Metric",
+                      "gap": 7,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "EwO10",
+                          "name": "TRUY CẬP Hero Value",
+                          "fill": "$ink",
+                          "content": "FREE",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 12,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "aGMR6",
+                          "name": "TRUY CẬP Hero Label",
+                          "fill": "$quiet",
+                          "content": "TRUY CẬP",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 8,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.5
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "P2XiZ",
+              "name": "Learning Architecture Diagram",
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "#101820",
+              "stroke": "#28404E",
+              "strokeWidth": 1,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "ofR3l",
+                  "x": 24,
+                  "y": 20,
+                  "name": "Diagram Label",
+                  "fill": "#8FB8CF",
+                  "content": "TBH_LEARNING_GRAPH / LIVE",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 10,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.8
+                },
+                {
+                  "type": "text",
+                  "id": "CbDHz",
+                  "x": 445,
+                  "y": 20,
+                  "name": "Diagram Status",
+                  "fill": "#67D6A3",
+                  "content": "● SYNCED",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "rectangle",
+                  "id": "WYT6M",
+                  "x": 24,
+                  "y": 48,
+                  "name": "Top Guide",
+                  "fill": "#35505F",
+                  "width": 508,
+                  "height": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "FvD70",
+                  "x": 184,
+                  "y": 92,
+                  "name": "Core Node",
+                  "width": 190,
+                  "height": 82,
+                  "fill": "$accent",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "padding": 14,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "a0rAPV",
+                      "name": "Core Kicker",
+                      "fill": "#E9F7FF",
+                      "content": "START HERE",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 9,
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "K2iGF",
+                      "name": "Core Title",
+                      "fill": "#FFFFFF",
+                      "content": "Nền tảng kỹ thuật",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 18,
+                      "fontWeight": "650"
+                    },
+                    {
+                      "type": "text",
+                      "id": "F21MQ",
+                      "name": "Core Meta",
+                      "fill": "#EAF6FC",
+                      "content": "18 tracks · 638+ docs",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "rectangle",
+                  "id": "c2dF2o",
+                  "x": 278,
+                  "y": 174,
+                  "name": "Connector Vertical",
+                  "fill": "#35505F",
+                  "width": 1,
+                  "height": 38
+                },
+                {
+                  "type": "rectangle",
+                  "id": "IRK8E",
+                  "x": 83,
+                  "y": 211,
+                  "name": "Connector Horizontal",
+                  "fill": "#35505F",
+                  "width": 389,
+                  "height": 1
+                },
+                {
+                  "type": "rectangle",
+                  "id": "aQpdI",
+                  "x": 83,
+                  "y": 211,
+                  "name": "Branch Connector",
+                  "fill": "#35505F",
+                  "width": 1,
+                  "height": 31
+                },
+                {
+                  "type": "rectangle",
+                  "id": "Y5QTNk",
+                  "x": 278,
+                  "y": 211,
+                  "name": "Branch Connector",
+                  "fill": "#35505F",
+                  "width": 1,
+                  "height": 31
+                },
+                {
+                  "type": "rectangle",
+                  "id": "dEKFp",
+                  "x": 471,
+                  "y": 211,
+                  "name": "Branch Connector",
+                  "fill": "#35505F",
+                  "width": 1,
+                  "height": 31
+                },
+                {
+                  "type": "frame",
+                  "id": "vzTxu",
+                  "x": 24,
+                  "y": 242,
+                  "name": "INFRA Node",
+                  "width": 118,
+                  "height": 110,
+                  "fill": "#16242C",
+                  "stroke": "#35505F",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 10,
+                  "padding": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "cbOxi",
+                      "name": "INFRA Header",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "FWz8q",
+                          "name": "INFRA Icon",
+                          "width": 17,
+                          "height": 17,
+                          "icon": "cloud",
+                          "library": "lucide",
+                          "fill": "$accent"
+                        },
+                        {
+                          "type": "text",
+                          "id": "H6xPf2",
+                          "name": "INFRA Number",
+                          "fill": "#6F8794",
+                          "content": "08",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 10,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "IhImR",
+                      "name": "INFRA Title",
+                      "fill": "#FFFFFF",
+                      "content": "INFRA",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 0.8
+                    },
+                    {
+                      "type": "text",
+                      "id": "QHV9G",
+                      "name": "INFRA Subtitle",
+                      "fill": "#9DB0BA",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "AWS · K8s · Docker",
+                      "lineHeight": 1.35,
+                      "fontFamily": "$font-body",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "o5V98e",
+                  "x": 219,
+                  "y": 242,
+                  "name": "BACKEND Node",
+                  "width": 118,
+                  "height": 110,
+                  "fill": "#16242C",
+                  "stroke": "#35505F",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 10,
+                  "padding": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "m2o7A",
+                      "name": "BACKEND Header",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "EtsAV",
+                          "name": "BACKEND Icon",
+                          "width": 17,
+                          "height": 17,
+                          "icon": "database",
+                          "library": "lucide",
+                          "fill": "$accent"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Ra1wz",
+                          "name": "BACKEND Number",
+                          "fill": "#6F8794",
+                          "content": "06",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 10,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "L0sdk2",
+                      "name": "BACKEND Title",
+                      "fill": "#FFFFFF",
+                      "content": "BACKEND",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 0.8
+                    },
+                    {
+                      "type": "text",
+                      "id": "AFxHp",
+                      "name": "BACKEND Subtitle",
+                      "fill": "#9DB0BA",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Java · SQL · Kafka",
+                      "lineHeight": 1.35,
+                      "fontFamily": "$font-body",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "VJ1vg",
+                  "x": 414,
+                  "y": 242,
+                  "name": "FRONTEND Node",
+                  "width": 118,
+                  "height": 110,
+                  "fill": "#16242C",
+                  "stroke": "#35505F",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 10,
+                  "padding": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "R3ncAb",
+                      "name": "FRONTEND Header",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "P2e6WR",
+                          "name": "FRONTEND Icon",
+                          "width": 17,
+                          "height": 17,
+                          "icon": "code",
+                          "library": "lucide",
+                          "fill": "$accent"
+                        },
+                        {
+                          "type": "text",
+                          "id": "hx6Qq",
+                          "name": "FRONTEND Number",
+                          "fill": "#6F8794",
+                          "content": "02",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 10,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "SmdOM",
+                      "name": "FRONTEND Title",
+                      "fill": "#FFFFFF",
+                      "content": "FRONTEND",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 0.8
+                    },
+                    {
+                      "type": "text",
+                      "id": "wgX6c",
+                      "name": "FRONTEND Subtitle",
+                      "fill": "#9DB0BA",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "React · JavaScript",
+                      "lineHeight": 1.35,
+                      "fontFamily": "$font-body",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "rectangle",
+                  "id": "vI3tT",
+                  "x": 24,
+                  "y": 382,
+                  "name": "Bottom Guide",
+                  "fill": "#35505F",
+                  "width": 508,
+                  "height": 1
+                },
+                {
+                  "type": "text",
+                  "id": "gKnFv",
+                  "x": 24,
+                  "y": 400,
+                  "name": "Diagram Footnote",
+                  "fill": "#6E96AC",
+                  "content": "SELECT_TRACK → FOLLOW_PATH → SHIP_TO_PRODUCTION",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 9,
+                  "fontWeight": "normal",
+                  "letterSpacing": 0.5
+                },
+                {
+                  "type": "ellipse",
+                  "id": "sQ6oh",
+                  "layoutPosition": "absolute",
+                  "x": 318,
+                  "y": 58,
+                  "name": "Technical Orbit Outer",
+                  "fill": "#00000000",
+                  "width": 250,
+                  "height": 250,
+                  "stroke": "#4A9FD833",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "ellipse",
+                  "id": "Q0WyvE",
+                  "layoutPosition": "absolute",
+                  "x": 352,
+                  "y": 92,
+                  "name": "Technical Orbit Inner",
+                  "fill": "#00000000",
+                  "width": 182,
+                  "height": 182,
+                  "stroke": "#4A9FD826",
+                  "strokeWidth": 1
+                },
+                {
+                  "type": "text",
+                  "id": "tyGXz",
+                  "layoutPosition": "absolute",
+                  "x": 390,
+                  "y": 72,
+                  "name": "Ghost Track Count",
+                  "fill": "#FFFFFF0A",
+                  "content": "18",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 116,
+                  "fontWeight": "700",
+                  "letterSpacing": -7
+                }
+              ]
+            },
+            {
+              "type": "rectangle",
+              "id": "XSxrN",
+              "layoutPosition": "absolute",
+              "x": 0,
+              "y": 0,
+              "name": "Hero Accent Rail",
+              "fill": "$accent",
+              "width": 5,
+              "height": 548
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "nMe1M",
+          "name": "Learning Library",
+          "width": "fill_container",
+          "height": 900,
+          "stroke": "$border-subtle",
+          "strokeWidth": {
+            "bottom": 1
+          },
+          "layout": "vertical",
+          "gap": 28,
+          "padding": [
+            52,
+            72
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Bggke",
+              "name": "Library Header",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "k4s4H",
+                  "name": "Library Title",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "VLjnC",
+                      "name": "Library Eyebrow",
+                      "fill": "$accent",
+                      "content": "THƯ VIỆN HỌC TẬP",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 10,
+                      "fontWeight": "650",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "J4zNm",
+                      "name": "Library Heading",
+                      "fill": "$ink",
+                      "content": "18 lộ trình. Một hệ thống.",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 38,
+                      "fontWeight": "650",
+                      "letterSpacing": -1.2
+                    },
+                    {
+                      "type": "text",
+                      "id": "WDGbX",
+                      "name": "Library Description",
+                      "fill": "$muted",
+                      "content": "Chọn một chủ đề để bắt đầu hoặc tiếp tục nơi bạn đã dừng lại.",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "tzaIN",
+                  "name": "Topic Filter",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "uhldQ",
+                      "name": "Filter Tất cả",
+                      "height": 34,
+                      "fill": "$ink",
+                      "stroke": "$ink",
+                      "strokeWidth": 1,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "v80LH",
+                          "name": "Filter Label Tất cả",
+                          "fill": "#FFFFFF",
+                          "content": "Tất cả",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "z05cd",
+                      "name": "Filter Hạ tầng",
+                      "height": 34,
+                      "fill": "#FFFFFF",
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "PbNTJ",
+                          "name": "Filter Label Hạ tầng",
+                          "fill": "$muted",
+                          "content": "Hạ tầng",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "thGU7",
+                      "name": "Filter Backend",
+                      "height": 34,
+                      "fill": "#FFFFFF",
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "UMs9H",
+                          "name": "Filter Label Backend",
+                          "fill": "$muted",
+                          "content": "Backend",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "uxZe9",
+                      "name": "Filter Web",
+                      "height": 34,
+                      "fill": "#FFFFFF",
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "c0RJit",
+                          "name": "Filter Label Web",
+                          "fill": "$muted",
+                          "content": "Web",
+                          "fontFamily": "$font-body",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "KWrUx",
+              "name": "Track Directory",
+              "width": "fill_container",
+              "height": 640,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "LyHLg",
+                  "name": "01 / INFRASTRUCTURE",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "right": 1
+                  },
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "L0zJtc",
+                      "name": "01 / INFRASTRUCTURE Header",
+                      "width": "fill_container",
+                      "height": 52,
+                      "fill": "$surface-secondary",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "H0qbUp",
+                          "name": "01 / INFRASTRUCTURE Label",
+                          "fill": "$quiet",
+                          "content": "01 / INFRASTRUCTURE",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 10,
+                          "fontWeight": "650",
+                          "letterSpacing": 0.7
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "HdsZd",
+                      "name": "AWS Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "lhkD5",
+                          "name": "AWS Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "C6wKQF",
+                              "name": "AWS Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$accent-soft",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "m850e",
+                                  "name": "AWS Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "cloud",
+                                  "library": "lucide",
+                                  "fill": "$accent"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "i9Zm2",
+                              "name": "AWS Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "lSIBk",
+                                  "name": "AWS Name",
+                                  "fill": "$ink",
+                                  "content": "AWS",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "etir3",
+                                  "name": "AWS Meta",
+                                  "fill": "$quiet",
+                                  "content": "139 tài liệu",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "c1O2gR",
+                          "name": "AWS Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "TpuoC",
+                      "name": "Kubernetes Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "IpRql",
+                          "name": "Kubernetes Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "JXOXy",
+                              "name": "Kubernetes Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "mgs3S",
+                                  "name": "Kubernetes Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "ship-wheel",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "MNBAS",
+                              "name": "Kubernetes Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "HJnhC",
+                                  "name": "Kubernetes Name",
+                                  "fill": "$ink",
+                                  "content": "Kubernetes",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "N0RxVX",
+                                  "name": "Kubernetes Meta",
+                                  "fill": "$quiet",
+                                  "content": "181 tài liệu",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "AbiIB",
+                          "name": "Kubernetes Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Bn7CY",
+                      "name": "Docker Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "qdk1z",
+                          "name": "Docker Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "LGLZh",
+                              "name": "Docker Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "U8Vext",
+                                  "name": "Docker Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "container",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "esUR6",
+                              "name": "Docker Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "MjnXD",
+                                  "name": "Docker Name",
+                                  "fill": "$ink",
+                                  "content": "Docker",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "p3odEE",
+                                  "name": "Docker Meta",
+                                  "fill": "$quiet",
+                                  "content": "Live · Core",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "xsQqi",
+                          "name": "Docker Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QmK7h",
+                      "name": "GitHub Actions Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "s8J5tW",
+                          "name": "GitHub Actions Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "dLlTH",
+                              "name": "GitHub Actions Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "MbrPj",
+                                  "name": "GitHub Actions Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "workflow",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Dt7A1",
+                              "name": "GitHub Actions Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "eHzxr",
+                                  "name": "GitHub Actions Name",
+                                  "fill": "$ink",
+                                  "content": "GitHub Actions",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "ElMex",
+                                  "name": "GitHub Actions Meta",
+                                  "fill": "$quiet",
+                                  "content": "Live · CI/CD",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "p6wqV",
+                          "name": "GitHub Actions Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "T6LPwF",
+                      "name": "Jenkins Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "MPEg9",
+                          "name": "Jenkins Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "vVjBK",
+                              "name": "Jenkins Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "kGsuD",
+                                  "name": "Jenkins Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "git-branch",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "nfcCk",
+                              "name": "Jenkins Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "O9WYl0",
+                                  "name": "Jenkins Name",
+                                  "fill": "$ink",
+                                  "content": "Jenkins",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "FkdGZ",
+                                  "name": "Jenkins Meta",
+                                  "fill": "$quiet",
+                                  "content": "Live · Pipeline",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "FChPO",
+                          "name": "Jenkins Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "X1ITR",
+                      "name": "Multi-Tenant Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "lLvfI",
+                          "name": "Multi-Tenant Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "nQhOq",
+                              "name": "Multi-Tenant Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "G769FK",
+                                  "name": "Multi-Tenant Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "building-2",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Kb8Fp",
+                              "name": "Multi-Tenant Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "udyDb",
+                                  "name": "Multi-Tenant Name",
+                                  "fill": "$ink",
+                                  "content": "Multi-Tenant",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "pUggA",
+                                  "name": "Multi-Tenant Meta",
+                                  "fill": "$quiet",
+                                  "content": "16 tài liệu",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "c83FLm",
+                          "name": "Multi-Tenant Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "GBkmv",
+                  "name": "02 / BACKEND SYSTEMS",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "right": 1
+                  },
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "yMTrA",
+                      "name": "02 / BACKEND SYSTEMS Header",
+                      "width": "fill_container",
+                      "height": 52,
+                      "fill": "$surface-secondary",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "aKlCG",
+                          "name": "02 / BACKEND SYSTEMS Label",
+                          "fill": "$quiet",
+                          "content": "02 / BACKEND SYSTEMS",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 10,
+                          "fontWeight": "650",
+                          "letterSpacing": 0.7
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "s7b0e",
+                      "name": "Microservices Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "N3zJb",
+                          "name": "Microservices Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "L8tCt",
+                              "name": "Microservices Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "YcOyy",
+                                  "name": "Microservices Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "blocks",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "u4VGAy",
+                              "name": "Microservices Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "WnTb8",
+                                  "name": "Microservices Name",
+                                  "fill": "$ink",
+                                  "content": "Microservices",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "jqUwS",
+                                  "name": "Microservices Meta",
+                                  "fill": "$quiet",
+                                  "content": "29 tài liệu",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "D6KZR",
+                          "name": "Microservices Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Ygi2C",
+                      "name": "SQL Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "GIOMR",
+                          "name": "SQL Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "ONSqC",
+                              "name": "SQL Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "D6jYy",
+                                  "name": "SQL Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "database",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "FkWVg",
+                              "name": "SQL Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "z4bilQ",
+                                  "name": "SQL Name",
+                                  "fill": "$ink",
+                                  "content": "SQL",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "eQgnq",
+                                  "name": "SQL Meta",
+                                  "fill": "$quiet",
+                                  "content": "23 tài liệu",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "JwNqI",
+                          "name": "SQL Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "w2yAo",
+                      "name": "Kafka Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "vmozO",
+                          "name": "Kafka Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "U41uCA",
+                              "name": "Kafka Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "e5UlM",
+                                  "name": "Kafka Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "radio-tower",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "C0EYIy",
+                              "name": "Kafka Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "ziplv",
+                                  "name": "Kafka Name",
+                                  "fill": "$ink",
+                                  "content": "Kafka",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "ujG4q",
+                                  "name": "Kafka Meta",
+                                  "fill": "$quiet",
+                                  "content": "27 tài liệu",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "oNjZV",
+                          "name": "Kafka Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "e5Ep2T",
+                      "name": "Redis Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "m1lxN",
+                          "name": "Redis Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "y5pctl",
+                              "name": "Redis Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "w2FOQ",
+                                  "name": "Redis Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "memory-stick",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "WOxvx",
+                              "name": "Redis Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "x3hco",
+                                  "name": "Redis Name",
+                                  "fill": "$ink",
+                                  "content": "Redis",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "Jtpmt",
+                                  "name": "Redis Meta",
+                                  "fill": "$quiet",
+                                  "content": "Live · Cache",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "yv96V",
+                          "name": "Redis Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "dLUl8",
+                      "name": "Java Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "kWjE6",
+                          "name": "Java Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "ILEcb",
+                              "name": "Java Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "aNhzm",
+                                  "name": "Java Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "coffee",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "jvrhM",
+                              "name": "Java Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "VZww7",
+                                  "name": "Java Name",
+                                  "fill": "$ink",
+                                  "content": "Java",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "a1BBIF",
+                                  "name": "Java Meta",
+                                  "fill": "$quiet",
+                                  "content": "Live · Core",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "MB25z",
+                          "name": "Java Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QFQbJ",
+                      "name": "Java Memory Model Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "jlxYB",
+                          "name": "Java Memory Model Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "qTFro",
+                              "name": "Java Memory Model Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "ZqLLf",
+                                  "name": "Java Memory Model Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "cpu",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "FIINQ",
+                              "name": "Java Memory Model Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "SQp6I",
+                                  "name": "Java Memory Model Name",
+                                  "fill": "$ink",
+                                  "content": "Java Memory Model",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "JZQu2",
+                                  "name": "Java Memory Model Meta",
+                                  "fill": "$quiet",
+                                  "content": "22 tài liệu",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "vbtsb",
+                          "name": "Java Memory Model Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "kahwR",
+                      "name": "JWT & Auth Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "OjCSm",
+                          "name": "JWT & Auth Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "K1rklx",
+                              "name": "JWT & Auth Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "f5I3s",
+                                  "name": "JWT & Auth Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "key-round",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "l92uhf",
+                              "name": "JWT & Auth Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "Zef88",
+                                  "name": "JWT & Auth Name",
+                                  "fill": "$ink",
+                                  "content": "JWT & Auth",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "bi7jy",
+                                  "name": "JWT & Auth Meta",
+                                  "fill": "$quiet",
+                                  "content": "43 tài liệu",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "TxorC",
+                          "name": "JWT & Auth Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "EAM5Y",
+                  "name": "03 / WEB & PRACTICE",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "stroke": "#00000000",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "MRdah",
+                      "name": "03 / WEB & PRACTICE Header",
+                      "width": "fill_container",
+                      "height": 52,
+                      "fill": "$surface-secondary",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "f2Pnn",
+                          "name": "03 / WEB & PRACTICE Label",
+                          "fill": "$quiet",
+                          "content": "03 / WEB & PRACTICE",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 10,
+                          "fontWeight": "650",
+                          "letterSpacing": 0.7
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "DTDQj",
+                      "name": "React Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "dIfjD",
+                          "name": "React Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "W7RfD2",
+                              "name": "React Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "Zr3bQ",
+                                  "name": "React Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "atom",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Y99uUP",
+                              "name": "React Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "ooFgC",
+                                  "name": "React Name",
+                                  "fill": "$ink",
+                                  "content": "React",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "PQAfd",
+                                  "name": "React Meta",
+                                  "fill": "$quiet",
+                                  "content": "18 tài liệu",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "u5HGF",
+                          "name": "React Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "hhGzW",
+                      "name": "JavaScript Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "YhIIP",
+                          "name": "JavaScript Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "D1DX0",
+                              "name": "JavaScript Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "SGgzy",
+                                  "name": "JavaScript Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "braces",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "GmYcW",
+                              "name": "JavaScript Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "HnILY",
+                                  "name": "JavaScript Name",
+                                  "fill": "$ink",
+                                  "content": "JavaScript",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "iXkmx",
+                                  "name": "JavaScript Meta",
+                                  "fill": "$quiet",
+                                  "content": "33 tài liệu",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "JamUd",
+                          "name": "JavaScript Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "LjwDg",
+                      "name": "Interview Questions Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "sw6aJ",
+                          "name": "Interview Questions Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "WpHlK",
+                              "name": "Interview Questions Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "p56t6B",
+                                  "name": "Interview Questions Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "messages-square",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "FB8Oq",
+                              "name": "Interview Questions Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "l1KXjJ",
+                                  "name": "Interview Questions Name",
+                                  "fill": "$ink",
+                                  "content": "Interview Questions",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "I8q3So",
+                                  "name": "Interview Questions Meta",
+                                  "fill": "$quiet",
+                                  "content": "7 câu hỏi",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "wPXPN",
+                          "name": "Interview Questions Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "F5VHUL",
+                      "name": "System Design Practice Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "a1Cria",
+                          "name": "System Design Practice Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "gySkF",
+                              "name": "System Design Practice Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "FksHC",
+                                  "name": "System Design Practice Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "network",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "X9kBv",
+                              "name": "System Design Practice Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "wgcFH",
+                                  "name": "System Design Practice Name",
+                                  "fill": "$ink",
+                                  "content": "System Design Practice",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "HqsAv",
+                                  "name": "System Design Practice Meta",
+                                  "fill": "$quiet",
+                                  "content": "5 bài tập",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "Fge66",
+                          "name": "System Design Practice Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ljhat",
+                      "name": "AWS Questions Track",
+                      "width": "fill_container",
+                      "height": 82,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        0,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "J2lCmE",
+                          "name": "AWS Questions Identity",
+                          "gap": 13,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "z6Uw4L",
+                              "name": "AWS Questions Icon Box",
+                              "width": 34,
+                              "height": 34,
+                              "fill": "$surface-secondary",
+                              "layout": "vertical",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "icon",
+                                  "id": "yljrO",
+                                  "name": "AWS Questions Icon",
+                                  "width": 17,
+                                  "height": 17,
+                                  "icon": "info",
+                                  "library": "lucide",
+                                  "fill": "$ink"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "aQljT",
+                              "name": "AWS Questions Text",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "L0aQFE",
+                                  "name": "AWS Questions Name",
+                                  "fill": "$ink",
+                                  "content": "AWS Questions",
+                                  "fontFamily": "$font-heading",
+                                  "fontSize": 15,
+                                  "fontWeight": "620"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "VYpka",
+                                  "name": "AWS Questions Meta",
+                                  "fill": "$quiet",
+                                  "content": "Interactive",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 9,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "D28ea",
+                          "name": "AWS Questions Arrow",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$quiet"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Nh2QR",
+          "name": "Footer",
+          "width": "fill_container",
+          "height": 170,
+          "fill": "$ink",
+          "padding": [
+            0,
+            72
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "l6NcH1",
+              "name": "Footer Brand",
+              "layout": "vertical",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "jP74j",
+                  "name": "Footer Logo",
+                  "fill": "#FFFFFF",
+                  "content": "tbh / docs",
+                  "fontFamily": "$font-heading",
+                  "fontSize": 22,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "B2NPrZ",
+                  "name": "Footer Mission",
+                  "fill": "#AFAFAF",
+                  "textGrowth": "fixed-width",
+                  "width": 420,
+                  "content": "Tài liệu kỹ thuật tiếng Việt, được xây dựng để học sâu và làm thật.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "$font-body",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "lYdVK",
+              "name": "Footer Stats",
+              "gap": 46,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ls8J3",
+                  "name": "LỘ TRÌNH Stat",
+                  "layout": "vertical",
+                  "gap": 5,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "B4Lw0",
+                      "name": "LỘ TRÌNH Value",
+                      "fill": "#FFFFFF",
+                      "content": "18",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 24,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "tSzEV",
+                      "name": "LỘ TRÌNH Label",
+                      "fill": "$accent",
+                      "content": "LỘ TRÌNH",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 9,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.8
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "K7X58S",
+                  "name": "TÀI LIỆU Stat",
+                  "layout": "vertical",
+                  "gap": 5,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "jGahc",
+                      "name": "TÀI LIỆU Value",
+                      "fill": "#FFFFFF",
+                      "content": "638+",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 24,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "AciZS",
+                      "name": "TÀI LIỆU Label",
+                      "fill": "$accent",
+                      "content": "TÀI LIỆU",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 9,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.8
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "FXfEV",
+                  "name": "TIẾNG VIỆT Stat",
+                  "layout": "vertical",
+                  "gap": 5,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "E3zCs",
+                      "name": "TIẾNG VIỆT Value",
+                      "fill": "#FFFFFF",
+                      "content": "100%",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 24,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "DL1Wa",
+                      "name": "TIẾNG VIỆT Label",
+                      "fill": "$accent",
+                      "content": "TIẾNG VIỆT",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 9,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.8
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "WYojL",
+              "name": "Footer Links",
+              "layout": "vertical",
+              "gap": 12,
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "wZQ6u",
+                  "name": "Contribution Link",
+                  "fill": "#FFFFFF",
+                  "content": "Đóng góp tài liệu  ↗",
+                  "fontFamily": "$font-body",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "yDxnW",
+                  "name": "Copyright",
+                  "fill": "#888888",
+                  "content": "© 2026 tbh.docs · Built for engineers",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 9,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "surface-primary": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "surface-secondary": {
+      "type": "color",
+      "value": "#F7F8FA"
+    },
+    "ink": {
+      "type": "color",
+      "value": "#1A1A1A"
+    },
+    "muted": {
+      "type": "color",
+      "value": "#666666"
+    },
+    "quiet": {
+      "type": "color",
+      "value": "#888888"
+    },
+    "border": {
+      "type": "color",
+      "value": "#DDE1E6"
+    },
+    "border-subtle": {
+      "type": "color",
+      "value": "#EEF0F2"
+    },
+    "accent": {
+      "type": "color",
+      "value": "#4A9FD8"
+    },
+    "accent-soft": {
+      "type": "color",
+      "value": "#E8F4FB"
+    },
+    "success": {
+      "type": "color",
+      "value": "#1E8E63"
+    },
+    "font-heading": {
+      "type": "string",
+      "value": "Geist"
+    },
+    "font-body": {
+      "type": "string",
+      "value": "Inter"
+    },
+    "font-mono": {
+      "type": "string",
+      "value": "Geist Mono"
+    }
+  },
+  "fileToken": "f5b14473-2b27-434a-8ace-5efb4196806f"
+}
