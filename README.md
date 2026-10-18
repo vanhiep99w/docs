@@ -42,28 +42,14 @@ Mở `index.html`, tìm 2 dòng comment `TODO` và thay URL:
 <a href="https://YOUR-MS-URL" ...>
 ```
 
-## Claude Code Plugin Marketplace
+## Skill biên soạn dùng chung
 
-Repo này cũng đóng vai trò **plugin marketplace** cho Claude Code, hiện có:
+Marketplace `write-docs`, installer và các bản `.skill` đã được gỡ khỏi repo này. Hai skill được quản lý một lần ở root thư mục tập hợp `my-docs`:
 
-| Plugin | Mô tả |
-|--------|--------|
-| `write-docs` | Hướng dẫn viết tài liệu kỹ thuật tiếng Việt (Next.js + Fumadocs + Cloudflare) |
+- `../.agents/skills/fumadocs-project-init/SKILL.md`: khởi tạo repo tài liệu và curriculum.
+- `../.agents/skills/fumadocs-technical-writer/SKILL.md`: viết hoặc chỉnh sửa bài kỹ thuật.
 
-### Cài vào project
-
-```shell
-/plugin marketplace add vanhiep99w/docs
-/plugin install write-docs@vanhiep-plugins
-```
-
-Sau khi cài, restart Claude Code để plugin có hiệu lực.
-
-### Cập nhật plugin
-
-```shell
-/plugin marketplace update vanhiep-plugins
-```
+Không sao chép skill vào từng doc. Nếu checkout riêng repo `docs`, các đường dẫn trên không có sẵn; cần mở thư mục tập hợp hoặc cấu hình agent dùng skill chung. Toàn bộ skill của `aws-learn` được giữ nguyên.
 
 ## Khi thêm site mới
 
